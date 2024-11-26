@@ -14,7 +14,7 @@ Routes::get('/', function() {
 });
 
 Routes::get('/cliente/{id}', function($id) {
-    return $id;
+    return View::render('details');
 });
 
 $response = Kernel::send(Request::capture());

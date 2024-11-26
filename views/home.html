@@ -25,7 +25,7 @@
     }
 
     form.search {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     form.search input {
@@ -202,6 +202,35 @@
     div.buttons button:last-child:hover {
       background: red;
     }
+
+    div.parts form button {
+      border-radius: 0;
+      opacity: 1;
+      background: green;
+      justify-self: start;
+    }
+
+    div.menu {
+      background: #fff;
+      border-radius: .6rem;
+      display: none;
+      width: fit-content;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+      border: 1px solid #ddd;
+      position: absolute;
+    }
+
+    div.menu a {
+      padding: 1rem;
+      text-decoration: none;
+      color: #222;
+      font-weight: 700;
+      border-bottom: 1px solid #ddd;
+    }
+
+    div.menu a:hover {
+      background: #eee;
+    }
   </style>
 </head>
 <body>
@@ -230,23 +259,27 @@
             <input type="text" name="loja" id="loja">
           </div>
           <div class="form-control">
-            <label for="vendedor">pendedor</label>
+            <label for="vendedor">vendedor</label>
             <input type="text" name="vendedor" id="vendedor">
           </div>
           <div class="form-control">
-            <label for="data_compra">pata da compra</label>
-            <input type="text" name="data_compra" id="data_compra">
+            <label for="peca">peça</label>
+            <input type="text" name="peca" id="peca">
           </div>
           <div class="row">
             <div class="form-control">
-              <label for="peca">peça</label>
-              <input type="text" name="peca" id="peca">
+              <label for="data_compra">data da compra</label>
+              <input type="text" name="data_compra" id="data_compra">
             </div>
             <div class="form-control">
               <label for="preco">preço da peça</label>
               <input type="text" name="preco" id="preco">
             </div>
           </div>
+
+          <button type="submit">
+            Adicionar peça
+          </button>
         </form>
       </div>
     </div>
@@ -275,11 +308,11 @@
         </div>
         <div class="form-control">
           <label for="defeito">Defeito</label>
-          <textarea name="defeito" id="defeito" rows="7"></textarea>
+          <textarea name="defeito" id="defeito" rows="8"></textarea>
         </div>
         <div class="form-control">
           <label for="substituicao">Peças a serem substituídas</label>
-          <textarea name="substituicao" id="substituicao" rows="7"></textarea>
+          <textarea name="substituicao" id="substituicao" rows="8"></textarea>
         </div>
       </form>
     </div>
@@ -356,14 +389,65 @@
           <td>Chave de ignição com defeito</td>
           <td>25/06/1997</td>
         </tr>
+        <tr>
+          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
+          <td>kwid</td>
+          <td>2001</td>
+          <td>Reto</td>
+          <td>Chave de ignição com defeito</td>
+          <td>25/06/1997</td>
+        </tr>
+        <tr>
+          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
+          <td>kwid</td>
+          <td>2001</td>
+          <td>Reto</td>
+          <td>Chave de ignição com defeito</td>
+          <td>25/06/1997</td>
+        </tr>
+        <tr>
+          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
+          <td>kwid</td>
+          <td>2001</td>
+          <td>Reto</td>
+          <td>Chave de ignição com defeito</td>
+          <td>25/06/1997</td>
+        </tr>
       </tbody>
     </table>
   </main>
+
+  <div class="menu">
+    <a href="#">Marcar/desmarcar como concluído</a>
+    <a href="#">Alterar dados</a>
+    <a href="#">Apagar</a>
+  </div>
 
   <script>
     const openForm = document.querySelector('button.add');
     const closeForm = document.querySelector('button.close');
     const overlay = document.querySelector('div.overlay');
+    const items = document.querySelectorAll('tbody tr');
+    const menu = document.querySelector('div.menu');
+
+    window.addEventListener('click', function(e) {
+      if(!e.target.classList.contains('menu')) {
+        menu.style.display = 'none';
+      }
+    });
+
+    items.forEach((item) => {
+      item.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+
+        const x = e.pageX;
+        const y = e.pageY;
+
+        menu.style.top = y + 'px';
+        menu.style.left = x + 'px';
+        menu.style.display = 'grid';
+      });
+    });
 
     openForm.addEventListener('click', function() {
       overlay.classList.add('active');

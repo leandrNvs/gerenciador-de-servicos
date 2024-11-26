@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      outline: none;
+    }
+
+    body {
+      background: #585858;
+      padding: 4rem;
+    }
+
+    main {
+      background: #fff;
+      padding: 4rem 2rem;
+      font-size: 1.5rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    div.container {
+      border: 1px solid #aaa;
+      position: relative;
+      padding: 2rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    div.container h3 {
+      font-size: 1.3rem;
+      position: absolute;
+      top: -13px;
+      left: 8px;
+      background: #fff;
+      padding: 0 1rem;
+      color: #777;
+    }
+
+    div.row {
+      display: flex;
+      gap: 2rem;
+    }
+
+    table {
+      width: 50%;
+    }
+
+    td {
+      padding-bottom: 1rem;
+      padding-right: 2rem;
+    }
+
+    div.parts-container {
+      display: grid;
+      gap: 2rem;
+    }
+
+    a.go-to-home {
+      background: #000;
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      height: 50px;
+      width: 50px;
+      display: grid;
+      place-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="container">
+      <h3>Dados do cliente</h3>
+
+      <p><b>Nome: </b> Leandro Neves</p>
+      <p><b>Contato: </b> (99) 99999-9999</p>
+    </div>
+
+    <div class="container">
+      <h3>Dados do veículo</h3>
+
+      <table>
+        <tr>
+          <td><b>Marca: </b> Alguma coisa</td>
+          <td><b>Modelo: </b> Something</td>
+        </tr>
+        <tr>
+          <td><b>Ano: </b> 8888</td>
+          <td><b>Placa: </b> asa9999</td>
+        </tr>
+      </table>
+
+      <div style="margin-bottom: 2rem;">
+        <b>Defeito:</b>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis veniam iste at id, laudantium sint?</p>
+      </div>
+
+      <div>
+        <b>Peças a serem trocadas:</b>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis veniam iste at id, laudantium sint?</p>
+      </div>
+    </div>
+
+    <div class="parts-container">
+      <h3>Peças compradas</h3>
+
+      <div class="container">
+        <h3>Peça 1</h3>
+
+        <p><b>Local da compra:</b> dadasdsadsad</p>
+        <p><b>Vendedor: </b> dasdasdas</p>
+
+        <div class="row">
+          <p><b>Preço: </b> R$ 25,00</p>
+          <p><b>Data da compra: </b> 25/06/1997</p>
+        </div>
+      </div>
+      <div class="container">
+        <h3>Peça 1</h3>
+
+        <p><b>Local da compra:</b> dadasdsadsad</p>
+        <p><b>Vendedor: </b> dasdasdas</p>
+
+        <div class="row">
+          <p><b>Preço: </b> R$ 25,00</p>
+          <p><b>Data da compra: </b> 25/06/1997</p>
+        </div>
+      </div>
+      <div class="container">
+        <h3>Peça 1</h3>
+
+        <p><b>Local da compra:</b> dadasdsadsad</p>
+        <p><b>Vendedor: </b> dasdasdas</p>
+
+        <div class="row">
+          <p><b>Preço: </b> R$ 25,00</p>
+          <p><b>Data da compra: </b> 25/06/1997</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <a href="/" class="go-to-home">
+    <img src="/assets/images/home.svg" alt="go to home">
+  </a>
+  
+</body>
+</html>
