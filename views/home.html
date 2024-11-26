@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: #F5F5F5;
+    }
+
+    main {
+      margin: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    form.search {
+      margin-bottom: 2rem;
+    }
+
+    form.search input {
+      border: 1px solid #ffff;
+      box-shadow: 0 0 10px rgba(0,0,0,.1);
+      font-size: 1rem;
+      width: 100%;
+      max-width: 500px;
+      padding: 15px;
+      border-radius: 1.5rem;
+      padding-left: 40px;
+      background: #fff url('/assets/images/search.svg') no-repeat 4% 50%;
+    }
+
+    button {
+      font-size: 1.1rem;
+      color: #fff;
+      padding: 1rem;
+      background: dodgerblue;
+      font-weight: bold;
+      border-radius: .6rem;
+      border: none;
+      align-self: self-end;
+      box-shadow: 0 0 10px rgba(0,0,0,.1);
+      opacity: 0.7;
+      cursor: pointer;
+      transition: .3s;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    button:hover {
+      opacity: 1;
+    }
+
+    table {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,.1);
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      color: #222;
+      padding: 1rem;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    th span {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    td {
+      padding: .8rem 1rem;
+    }
+
+    tbody tr:hover {
+      background: #F0F0F0;
+    }
+
+    div.overlay {
+      background: rgba(0, 0, 0, .8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      
+      padding: 4rem;
+
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      
+      overflow-y: auto;
+
+    }
+
+    div.overlay.active {
+      display: grid;
+    }
+
+    div.overlay > div h3 {
+      width: 100%;
+      padding: .5rem;
+      background: gray;
+      text-align: center;
+      color: #fff;
+    }
+
+    div.clients {
+      margin-bottom: 2rem;
+    }
+
+    div.overlay form {
+      background: #fff;
+      display: grid;
+      gap: 2rem;
+      padding: 3rem;
+    }
+
+    div.row {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    div.form-control {
+      position: relative;
+      flex: 1;
+    }
+
+    div.form-control input {
+      border: 1px solid gray;
+      font-size: 1.3rem;
+      padding: 10px;
+      width: 100%;
+      padding-left: 20px;
+    }
+
+    div.form-control textarea {
+      border: 1px solid gray;
+      font-size: 1.3rem;
+      padding: 10px;
+      width: 100%;
+      resize: none;
+    }
+
+    div.form-control input:focus {
+      border-color: dodgerblue;
+      outline: 2px solid dodgerblue;
+    }
+
+    div.form-control textarea:focus {
+      border-color: dodgerblue;
+      outline: 2px solid dodgerblue;
+    }
+    
+    div.form-control label {
+      background: #fff;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      padding: 0 1rem ;
+      text-transform: capitalize;
+    }
+
+    div.buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    div.buttons button {
+      opacity: 1;
+      font-size: 1rem;
+      border-radius: 0;
+      background: grey;
+    }
+
+    div.buttons button:first-child:hover {
+      background: green;
+    }
+
+    div.buttons button:last-child:hover {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <div class="forms-group">
+      <div class="clients">
+        <h3>Cliente</h3>
+        <form action="" autocomplete="off">
+          <div class="form-control">
+            <label for="cliente">cliente</label>
+            <input type="text" name="cliente" id="cliente">
+          </div>
+
+          <div class="form-control">
+            <label for="contatos">contato</label>
+            <input type="text" name="contatos" id="contatos">
+          </div>
+        </form>
+      </div>
+      <div class="parts">
+        <h3>Peças</h3>
+        <form action="" autocomplete="off">
+          <div class="form-control">
+            <label for="loja">local da compra</label>
+            <input type="text" name="loja" id="loja">
+          </div>
+          <div class="form-control">
+            <label for="vendedor">pendedor</label>
+            <input type="text" name="vendedor" id="vendedor">
+          </div>
+          <div class="form-control">
+            <label for="data_compra">pata da compra</label>
+            <input type="text" name="data_compra" id="data_compra">
+          </div>
+          <div class="row">
+            <div class="form-control">
+              <label for="peca">peça</label>
+              <input type="text" name="peca" id="peca">
+            </div>
+            <div class="form-control">
+              <label for="preco">preço da peça</label>
+              <input type="text" name="preco" id="preco">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="cars">
+      <h3>Carro</h3>
+      <form action="">
+        <div class="row">
+          <div class="form-control">
+            <label for="marca">marca</label>
+            <input type="text" name="marca" id="marca">
+          </div>
+          <div class="form-control">
+            <label for="modelo">modelo</label>
+            <input type="text" name="modelo" id="modelo">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-control">
+            <label for="ano">ano</label>
+            <input type="text" name="ano" id="ano">
+          </div>
+          <div class="form-control">
+            <label for="placa">placa</label>
+            <input type="text" name="placa" id="placa">
+          </div>
+        </div>
+        <div class="form-control">
+          <label for="defeito">Defeito</label>
+          <textarea name="defeito" id="defeito" rows="7"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="substituicao">Peças a serem substituídas</label>
+          <textarea name="substituicao" id="substituicao" rows="7"></textarea>
+        </div>
+      </form>
+    </div>
+
+    <div class="buttons">
+      <button>Concluir cadastro</button>
+
+      <button class="close">Fechar</button>
+    </div>
+  </div>
+
+  <main>
+    <form class="search" autocomplete="off">
+      <input type="search" name="search" placeholder="Procuper pelo nome do cliente ou carro" />
+    </form>
+
+    <button class="add">
+      <img src="/assets/images/plus.svg" alt="">
+      Adicionar novo serviço
+    </button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <span>
+              <img src="/assets/images/user.svg" alt="" />
+              cliente
+              <img src="/assets/images/arrow.svg" alt="" />
+            </span>
+          </th>
+          <th>
+            <span>
+              <img src="/assets/images/car.svg" alt="">
+              carro
+              <img src="/assets/images/arrow.svg" alt="" />
+            </span>
+          </th>
+          <th>
+            <span>
+              <img src="/assets/images/calendar.svg" alt="">
+              ano
+              <img src="/assets/images/arrow.svg" alt="" />
+            </span>
+          </th>
+          <th>
+            <span>
+              <img src="/assets/images/car-model.svg" alt="">
+              modelo
+              <img src="/assets/images/arrow.svg" alt="" />
+            </span>
+          </th>
+          <th>
+            <span>
+              <img src="/assets/images/tool.svg" alt="">
+              serviço
+            </span>
+          </th>
+          <th>
+            <span>
+              <img src="/assets/images/calendar.svg" alt="">
+              data
+              <img src="/assets/images/arrow.svg" alt="" />
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
+          <td>kwid</td>
+          <td>2001</td>
+          <td>Reto</td>
+          <td>Chave de ignição com defeito</td>
+          <td>25/06/1997</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    const openForm = document.querySelector('button.add');
+    const closeForm = document.querySelector('button.close');
+    const overlay = document.querySelector('div.overlay');
+
+    openForm.addEventListener('click', function() {
+      overlay.classList.add('active');
+      window.scrollTo(0, 0);
+    });
+
+    closeForm.addEventListener('click', function() {
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
