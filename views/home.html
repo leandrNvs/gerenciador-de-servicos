@@ -276,10 +276,6 @@
               <input type="text" name="preco" id="preco">
             </div>
           </div>
-
-          <button type="submit">
-            Adicionar peça
-          </button>
         </form>
       </div>
     </div>
@@ -308,11 +304,11 @@
         </div>
         <div class="form-control">
           <label for="defeito">Defeito</label>
-          <textarea name="defeito" id="defeito" rows="8"></textarea>
+          <textarea name="defeito" id="defeito" rows="7"></textarea>
         </div>
         <div class="form-control">
           <label for="substituicao">Peças a serem substituídas</label>
-          <textarea name="substituicao" id="substituicao" rows="8"></textarea>
+          <textarea name="substituicao" id="substituicao" rows="7"></textarea>
         </div>
       </form>
     </div>
@@ -433,12 +429,17 @@
     window.addEventListener('click', function(e) {
       if(!e.target.classList.contains('menu')) {
         menu.style.display = 'none';
+        trMarked.removeAttribute('style');
       }
     });
+
+    let trMarked = null;
 
     items.forEach((item) => {
       item.addEventListener('contextmenu', function(e) {
         e.preventDefault();
+
+        if(trMarked) trMarked.removeAttribute('style');
 
         const x = e.pageX;
         const y = e.pageY;
@@ -446,7 +447,12 @@
         menu.style.top = y + 'px';
         menu.style.left = x + 'px';
         menu.style.display = 'grid';
+
+        this.style.background = '#F0F0F0';
+
+        trMarked = this;
       });
+
     });
 
     openForm.addEventListener('click', function() {
