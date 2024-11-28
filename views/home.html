@@ -46,7 +46,6 @@
       padding: 1rem;
       background: dodgerblue;
       font-weight: bold;
-      border-radius: .6rem;
       border: none;
       align-self: self-end;
       box-shadow: 0 0 10px rgba(0,0,0,.1);
@@ -231,6 +230,11 @@
     div.menu a:hover {
       background: #eee;
     }
+
+    .error {
+      outline: 2px solid red;
+      border: 1px solid red;
+    }
   </style>
 </head>
 <body>
@@ -239,82 +243,64 @@
     <div class="forms-group">
       <div class="clients">
         <h3>Cliente</h3>
-        <form action="" autocomplete="off">
+        <form action="" class="client" autocomplete="off">
           <div class="form-control">
-            <label for="cliente">cliente</label>
-            <input type="text" name="cliente" id="cliente">
+            <label for="client">cliente</label>
+            <input type="text" name="client" id="client">
           </div>
 
           <div class="form-control">
-            <label for="contatos">contato</label>
-            <input type="text" name="contatos" id="contatos">
+            <label for="contact">contato</label>
+            <input type="text" name="contact" id="contatc">
           </div>
         </form>
       </div>
-      <div class="parts">
-        <h3>Peças</h3>
-        <form action="" autocomplete="off">
-          <div class="form-control">
-            <label for="loja">local da compra</label>
-            <input type="text" name="loja" id="loja">
-          </div>
-          <div class="form-control">
-            <label for="vendedor">vendedor</label>
-            <input type="text" name="vendedor" id="vendedor">
-          </div>
-          <div class="form-control">
-            <label for="peca">peça</label>
-            <input type="text" name="peca" id="peca">
+      <div class="cars">
+        <h3>Carro</h3>
+        <form action="" class="car" autocomplete="off">
+          <div class="row">
+            <div class="form-control">
+              <label for="brand">marca</label>
+              <input type="text" name="brand" id="brand">
+            </div>
+            <div class="form-control">
+              <label for="model">modelo</label>
+              <input type="text" name="model" id="model">
+            </div>
           </div>
           <div class="row">
             <div class="form-control">
-              <label for="data_compra">data da compra</label>
-              <input type="text" name="data_compra" id="data_compra">
+              <label for="year">ano</label>
+              <input type="text" name="year" id="year">
             </div>
             <div class="form-control">
-              <label for="preco">preço da peça</label>
-              <input type="text" name="preco" id="preco">
+              <label for="plate">placa</label>
+              <input type="text" name="plate" id="plate">
             </div>
+          </div>
+          <div class="form-control">
+            <label for="problem">Defeito</label>
+            <textarea name="problem" id="problem" rows="7"></textarea>
           </div>
         </form>
       </div>
     </div>
-    <div class="cars">
-      <h3>Carro</h3>
-      <form action="">
-        <div class="row">
-          <div class="form-control">
-            <label for="marca">marca</label>
-            <input type="text" name="marca" id="marca">
-          </div>
-          <div class="form-control">
-            <label for="modelo">modelo</label>
-            <input type="text" name="modelo" id="modelo">
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-control">
-            <label for="ano">ano</label>
-            <input type="text" name="ano" id="ano">
-          </div>
-          <div class="form-control">
-            <label for="placa">placa</label>
-            <input type="text" name="placa" id="placa">
-          </div>
+    <div class="services">
+      <h3>Serviço</h3>
+      <form action="" class="service" autocomplete="off">
+        <div class="form-control">
+          <label for="changes">Peças a serem substituídas</label>
+          <textarea name="changes" id="changes" rows="7"></textarea>
         </div>
         <div class="form-control">
-          <label for="defeito">Defeito</label>
-          <textarea name="defeito" id="defeito" rows="7"></textarea>
-        </div>
-        <div class="form-control">
-          <label for="substituicao">Peças a serem substituídas</label>
-          <textarea name="substituicao" id="substituicao" rows="7"></textarea>
+          <label for="price">preço do serviço</label>
+          <input type="text" name="price" id="price">
         </div>
       </form>
     </div>
 
     <div class="buttons">
-      <button>Concluir cadastro</button>
+      <button class="submitButton">Concluir cadastro</button>
 
       <button class="close">Fechar</button>
     </div>
@@ -377,38 +363,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
-          <td>kwid</td>
-          <td>2001</td>
-          <td>Reto</td>
-          <td>Chave de ignição com defeito</td>
-          <td>25/06/1997</td>
-        </tr>
-        <tr>
-          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
-          <td>kwid</td>
-          <td>2001</td>
-          <td>Reto</td>
-          <td>Chave de ignição com defeito</td>
-          <td>25/06/1997</td>
-        </tr>
-        <tr>
-          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
-          <td>kwid</td>
-          <td>2001</td>
-          <td>Reto</td>
-          <td>Chave de ignição com defeito</td>
-          <td>25/06/1997</td>
-        </tr>
-        <tr>
-          <td><a href="/cliente/dadjakdjask">João Kleber</a></td>
-          <td>kwid</td>
-          <td>2001</td>
-          <td>Reto</td>
-          <td>Chave de ignição com defeito</td>
-          <td>25/06/1997</td>
-        </tr>
+        {{line}}
       </tbody>
     </table>
   </main>
@@ -425,11 +380,17 @@
     const overlay = document.querySelector('div.overlay');
     const items = document.querySelectorAll('tbody tr');
     const menu = document.querySelector('div.menu');
+    const submitButton = document.querySelector('button.submitButton');
+    const client = document.querySelector('form.client');
+    const car = document.querySelector('form.car');
+    const service = document.querySelector('form.service');
+
+    const URL = window.location.href;
 
     window.addEventListener('click', function(e) {
       if(!e.target.classList.contains('menu')) {
         menu.style.display = 'none';
-        trMarked.removeAttribute('style');
+        if(trMarked) trMarked.removeAttribute('style');
       }
     });
 
@@ -463,6 +424,56 @@
     closeForm.addEventListener('click', function() {
       overlay.classList.remove('active');
     });
+
+    client.contact.addEventListener('keyup', function(e) {
+
+      if(e.key.match(/[^0-9]/) || this.value.length > 11) {
+        this.value = this.value.substring(0, this.value.length - 1);
+      }
+
+      this.value = this.value
+        .replace(/([\d]{2})([\d]{5})([\d]{4})/, '($1) $2-$3');
+    });
+
+    submitButton.addEventListener('click', async function() {
+      const data = {};
+      let error = 0;
+
+      error = validate(client, ['client', 'contact']);
+      error = validate(car, ['brand', 'model', 'plate']);
+
+      data.client = client.client.value;
+      data.contact = client.contact.value;
+
+      data.brand = car.brand.value;
+      data.model = car.model.value;
+      data.year = car.year.value;
+      data.plate = car.plate.value;
+      data.problem = car.problem.value;
+
+      data.change_parts = service.changes.value;
+      data.price = service.price.value;
+
+      await fetch(URL + 'create', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+    });
+
+    function validate(form, fields) {
+      let error = 0;
+
+      fields.forEach((field) => {
+        if(form[field].value === '') {
+          form[field].classList.add('error');
+          error++;
+        } else {
+          form[field].classList.remove('error');
+        }
+      });
+
+      return error;
+    }
   </script>
 </body>
 </html>

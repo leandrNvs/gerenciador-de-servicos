@@ -2,7 +2,8 @@ FROM php:8.2-apache
 
 RUN apt update && apt install -y \
     git \
-    libzip-dev
+    libzip-dev \
+    sqlite3
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
