@@ -40,13 +40,12 @@
       background: #fff url('/assets/images/search.svg') no-repeat 4% 50%;
     }
 
-    button {
+    a.add {
       font-size: 1.1rem;
       color: #fff;
       padding: 1rem;
       background: dodgerblue;
       font-weight: bold;
-      border: none;
       align-self: self-end;
       box-shadow: 0 0 10px rgba(0,0,0,.1);
       opacity: 0.7;
@@ -55,9 +54,10 @@
       display: flex;
       gap: .5rem;
       align-items: center;
+      text-decoration: none;
     }
 
-    button:hover {
+    a.add:hover {
       opacity: 1;
     }
 
@@ -106,107 +106,11 @@
       padding: 4rem;
 
       display: none;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      
-      overflow-y: auto;
-
+      place-items: center;
     }
 
     div.overlay.active {
       display: grid;
-    }
-
-    div.overlay > div h3 {
-      width: 100%;
-      padding: .5rem;
-      background: gray;
-      text-align: center;
-      color: #fff;
-    }
-
-    div.clients {
-      margin-bottom: 2rem;
-    }
-
-    div.overlay form {
-      background: #fff;
-      display: grid;
-      gap: 2rem;
-      padding: 3rem;
-    }
-
-    div.row {
-      display: flex;
-      gap: 2rem;
-      width: 100%;
-    }
-
-    div.form-control {
-      position: relative;
-      flex: 1;
-    }
-
-    div.form-control input {
-      border: 1px solid gray;
-      font-size: 1.3rem;
-      padding: 10px;
-      width: 100%;
-      padding-left: 20px;
-    }
-
-    div.form-control textarea {
-      border: 1px solid gray;
-      font-size: 1.3rem;
-      padding: 10px;
-      width: 100%;
-      resize: none;
-    }
-
-    div.form-control input:focus {
-      border-color: dodgerblue;
-      outline: 2px solid dodgerblue;
-    }
-
-    div.form-control textarea:focus {
-      border-color: dodgerblue;
-      outline: 2px solid dodgerblue;
-    }
-    
-    div.form-control label {
-      background: #fff;
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      padding: 0 1rem ;
-      text-transform: capitalize;
-    }
-
-    div.buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    div.buttons button {
-      opacity: 1;
-      font-size: 1rem;
-      border-radius: 0;
-      background: grey;
-    }
-
-    div.buttons button:first-child:hover {
-      background: green;
-    }
-
-    div.buttons button:last-child:hover {
-      background: red;
-    }
-
-    div.parts form button {
-      border-radius: 0;
-      opacity: 1;
-      background: green;
-      justify-self: start;
     }
 
     div.menu {
@@ -231,79 +135,58 @@
       background: #eee;
     }
 
-    .error {
-      outline: 2px solid red;
-      border: 1px solid red;
+    form.delete-form {
+      background: #fff;
+    }
+
+    form.delete-form h2 {
+      background: gray;
+      color: #fff;
+      padding: 1rem 1rem 1rem 2rem;
+    }
+
+    form.delete-form div {
+      padding: 2rem;
+    }
+
+    form.delete-form p {
+      margin-bottom: 2rem;
+      font-size: 1.2rem;
+    }
+
+    form.delete-form button {
+      font-size: 1rem;
+      padding: .5rem 1rem;
+      border: 0;
+      cursor: pointer;
+    }
+
+    form.delete-form button:first-of-type {
+      background: red;
+      color: #fff;
+      margin-right: 10px;
+      font-weight: 700;
+    }
+
+    form.delete-form button:last-of-type {
+      font-weight: bold;
+      background: transparent;
     }
   </style>
 </head>
 <body>
 
   <div class="overlay">
-    <div class="forms-group">
-      <div class="clients">
-        <h3>Cliente</h3>
-        <form action="" class="client" autocomplete="off">
-          <div class="form-control">
-            <label for="client">cliente</label>
-            <input type="text" name="client" id="client">
-          </div>
-
-          <div class="form-control">
-            <label for="contact">contato</label>
-            <input type="text" name="contact" id="contatc">
-          </div>
-        </form>
+    <form action="" method="POST" class="delete-form">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="id" value="">
+      <h2>Confirme a exclusão</h2>
+      <div>
+        <p>Tem certeza que deseja apagar os dados do cliente <b></b>?</p>
+        <button type="submit">Confirmar</button>
+        <button type="reset">Cancelar</button>
       </div>
-      <div class="cars">
-        <h3>Carro</h3>
-        <form action="" class="car" autocomplete="off">
-          <div class="row">
-            <div class="form-control">
-              <label for="brand">marca</label>
-              <input type="text" name="brand" id="brand">
-            </div>
-            <div class="form-control">
-              <label for="model">modelo</label>
-              <input type="text" name="model" id="model">
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-control">
-              <label for="year">ano</label>
-              <input type="text" name="year" id="year">
-            </div>
-            <div class="form-control">
-              <label for="plate">placa</label>
-              <input type="text" name="plate" id="plate">
-            </div>
-          </div>
-          <div class="form-control">
-            <label for="problem">Defeito</label>
-            <textarea name="problem" id="problem" rows="7"></textarea>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="services">
-      <h3>Serviço</h3>
-      <form action="" class="service" autocomplete="off">
-        <div class="form-control">
-          <label for="changes">Peças a serem substituídas</label>
-          <textarea name="changes" id="changes" rows="7"></textarea>
-        </div>
-        <div class="form-control">
-          <label for="price">preço do serviço</label>
-          <input type="text" name="price" id="price">
-        </div>
-      </form>
-    </div>
-
-    <div class="buttons">
-      <button class="submitButton">Concluir cadastro</button>
-
-      <button class="close">Fechar</button>
-    </div>
+    </form>
   </div>
 
   <main>
@@ -311,10 +194,10 @@
       <input type="search" name="search" placeholder="Procuper pelo nome do cliente ou carro" />
     </form>
 
-    <button class="add">
+    <a href="/cliente" class="add">
       <img src="/assets/images/plus.svg" alt="">
       Adicionar novo serviço
-    </button>
+    </a>
 
     <table>
       <thead>
@@ -369,21 +252,18 @@
   </main>
 
   <div class="menu">
-    <a href="#">Marcar/desmarcar como concluído</a>
-    <a href="#">Alterar dados</a>
-    <a href="#">Apagar</a>
+    <a href="javascript:void(0)">Marcar/desmarcar como concluído</a>
+    <a href="javascript:void(0)">Alterar dados</a>
+    <a href="javascript:void(0)" class="delete-item">Apagar</a>
   </div>
 
   <script>
-    const openForm = document.querySelector('button.add');
-    const closeForm = document.querySelector('button.close');
     const overlay = document.querySelector('div.overlay');
     const items = document.querySelectorAll('tbody tr');
     const menu = document.querySelector('div.menu');
-    const submitButton = document.querySelector('button.submitButton');
-    const client = document.querySelector('form.client');
-    const car = document.querySelector('form.car');
-    const service = document.querySelector('form.service');
+
+    const deleteItem = document.querySelector('div.menu a.delete-item');
+    const deleteForm = document.querySelector('form.delete-form');
 
     const URL = window.location.href;
 
@@ -413,67 +293,24 @@
 
         trMarked = this;
       });
-
     });
 
-    openForm.addEventListener('click', function() {
+    deleteItem.addEventListener('click', function() {
       overlay.classList.add('active');
-      window.scrollTo(0, 0);
+
+      const name = trMarked.children[0].textContent;
+      const id = trMarked.dataset.id;
+
+      deleteForm.id.value = id;
+      deleteForm.action = '/cliente/' + id + '/delete';
+
+      deleteForm.querySelector('b').textContent = name;
     });
 
-    closeForm.addEventListener('click', function() {
+    deleteForm.querySelector('button:last-of-type').addEventListener('click', function() {
       overlay.classList.remove('active');
     });
 
-    client.contact.addEventListener('keyup', function(e) {
-
-      if(e.key.match(/[^0-9]/) || this.value.length > 11) {
-        this.value = this.value.substring(0, this.value.length - 1);
-      }
-
-      this.value = this.value
-        .replace(/([\d]{2})([\d]{5})([\d]{4})/, '($1) $2-$3');
-    });
-
-    submitButton.addEventListener('click', async function() {
-      const data = {};
-      let error = 0;
-
-      error = validate(client, ['client', 'contact']);
-      error = validate(car, ['brand', 'model', 'plate']);
-
-      data.client = client.client.value;
-      data.contact = client.contact.value;
-
-      data.brand = car.brand.value;
-      data.model = car.model.value;
-      data.year = car.year.value;
-      data.plate = car.plate.value;
-      data.problem = car.problem.value;
-
-      data.change_parts = service.changes.value;
-      data.price = service.price.value;
-
-      await fetch(URL + 'create', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-    });
-
-    function validate(form, fields) {
-      let error = 0;
-
-      fields.forEach((field) => {
-        if(form[field].value === '') {
-          form[field].classList.add('error');
-          error++;
-        } else {
-          form[field].classList.remove('error');
-        }
-      });
-
-      return error;
-    }
   </script>
 </body>
 </html>

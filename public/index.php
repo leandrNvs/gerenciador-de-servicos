@@ -8,6 +8,7 @@ use App\Models\Service;
 use Src\Database\Database;
 use Src\Http\Kernel;
 use Src\Http\Request;
+use Src\Routing\Redirect;
 use Src\Routing\Routes;
 use Src\View\View;
 
@@ -44,7 +45,11 @@ Routes::get('/', function() {
     ]);
 });
 
-Routes::get('/client/{id}', function($id) {
+Routes::get('/cliente', function() {
+    return View::render('form');
+});
+
+Routes::get('/cliente/{id}', function($id) {
     return View::render('details');
 });
 
@@ -77,6 +82,21 @@ Routes::post('/create', function() {
     $connecion->exec('COMMIT');
 
     $connecion->close();
+});
+
+Routes::delete('/cliente/{id}/delete', function(Request $request, $id) { 
+
+    var_dump($request->input('id'));
+    exit;
+
+    $conn = Database::getConnection();
+
+    $stmt = $conn->prepare('DELETE FROM client WHERE id = :id;');
+    $stmt->bindValue(':id', $id);
+
+    $stmt->execute();
+
+    Redirect::to('/');
 });
 
 $response = Kernel::send(Request::capture());
