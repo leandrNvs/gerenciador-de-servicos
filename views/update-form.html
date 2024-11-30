@@ -125,20 +125,21 @@
     <div class="links">
       <a href="/">Página inicial</a>
       >
-      <a href="/cliente" style="color: dodgerblue;">Cadastrar novo serviço</a>
+      <a href="/" style="color: dodgerblue;">Atualizar dados</a>
     </div>
-    <form action="/cliente" method="POST" autocomplete="off">
+    <form action="/cliente/{{id}}/update" method="POST" autocomplete="off">
+      <input type="hidden" name="_method" value="put">
       <div class="clients">
         <h3>Dados do cliente</h3>
         <div class="row">
           <div class="form-control">
             <label for="client">cliente</label>
-            <input type="text" name="client" id="client" autofocus>
+            <input type="text" name="client" id="client" placeholder="{{name}}" autofocus>
           </div>
 
           <div class="form-control">
             <label for="contact">contato</label>
-            <input type="text" name="contact" id="contatc">
+            <input type="text" name="contact" placeholder="{{contact}}" id="contact">
           </div>
         </div>
       </div>
@@ -147,47 +148,47 @@
         <div class="row">
           <div class="form-control">
             <label for="brand">marca</label>
-            <input type="text" name="brand" id="brand">
+            <input type="text" name="brand" placeholder="{{brand}}" id="brand">
           </div>
           <div class="form-control">
             <label for="model">modelo</label>
-            <input type="text" name="model" id="model">
+            <input type="text" name="model" placeholder="{{model}}" id="model">
           </div>
         </div>
         <div class="row">
           <div class="form-control">
             <label for="year">ano</label>
-            <input type="text" name="year" id="year">
+            <input type="text" name="year" placeholder="{{year}}" id="year">
           </div>
           <div class="form-control">
             <label for="plate">placa</label>
-            <input type="text" name="plate" id="plate">
+            <input type="text" name="plate" placeholder="{{plate}}" id="plate">
           </div>
         </div>
         <div class="form-control">
           <label for="problem">Defeito</label>
-          <textarea name="problem" id="problem" rows="7"></textarea>
+          <textarea name="problem" id="problem" placeholder="{{problem}}" rows="7"></textarea>
         </div>
       </div>
       <div class="services">
         <h3>Reparos necessários</h3>
         <div class="form-control">
           <label for="changes">Peças a serem substituídas</label>
-          <textarea name="changes" id="changes" rows="7"></textarea>
+          <textarea name="changes" id="changes" placeholder="{{service}}" rows="7"></textarea>
         </div>
         <div class="row">
           <div class="form-control">
             <label for="price">preço do serviço</label>
-            <input type="text" name="price" id="price">
+            <input type="text" name="price" placeholder="{{price}}" id="price">
           </div>
           <div class="form-control">
             <label for="service_date">Data do serviço</label>
-            <input type="text" name="service_date" id="service_date">
+            <input type="text" name="service_date" placeholder="{{date}}" id="service_date">
           </div>
         </div>
       </div>
       <div class="buttons-container">
-        <button type="submit">Concluir cadastro</button>
+        <button type="submit">Salvar alterações</button>
         <a href="/">Cancelar</button>
       </div>
     </form>

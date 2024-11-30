@@ -253,17 +253,22 @@
 
   <div class="menu">
     <a href="javascript:void(0)">Marcar/desmarcar como concluído</a>
-    <a href="javascript:void(0)">Alterar dados</a>
+    <a href="" class="update-item">Alterar dados</a>
     <a href="javascript:void(0)" class="delete-item">Apagar</a>
   </div>
 
   <script>
     const overlay = document.querySelector('div.overlay');
-    const items = document.querySelectorAll('tbody tr');
+    const tbody = document.querySelector('tbody');
     const menu = document.querySelector('div.menu');
 
     const deleteItem = document.querySelector('div.menu a.delete-item');
     const deleteForm = document.querySelector('form.delete-form');
+
+    const updateItem = document.querySelector('div.menu a.update-item');
+
+    const search = document.querySelector('form.search input');
+    const complete = document.querySelector('form.search div');
 
     const URL = window.location.href;
 
@@ -274,43 +279,66 @@
       }
     });
 
+    window.addEventListener('load', () => {
+      selectLines();
+    })
+
     let trMarked = null;
 
-    items.forEach((item) => {
-      item.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
+    function selectLines()
+    {
+      const items = document.querySelectorAll('tbody tr');
 
-        if(trMarked) trMarked.removeAttribute('style');
+      items.forEach((item) => {
+        item.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
 
-        const x = e.pageX;
-        const y = e.pageY;
+          if(trMarked) trMarked.removeAttribute('style');
 
-        menu.style.top = y + 'px';
-        menu.style.left = x + 'px';
-        menu.style.display = 'grid';
+          const x = e.pageX;
+          const y = e.pageY;
 
-        this.style.background = '#F0F0F0';
+          menu.style.top = y + 'px';
+          menu.style.left = x + 'px';
+          menu.style.display = 'grid';
 
-        trMarked = this;
+          this.style.background = '#F0F0F0';
+
+          trMarked = this;
+
+          updateItem.href = '/cliente/' + trMarked.dataset.id + '/alterar';
+        });
       });
+
+      deleteItem.addEventListener('click', function() {
+        overlay.classList.add('active');
+
+        const name = trMarked.children[0].textContent;
+        const id = trMarked.dataset.id;
+
+        deleteForm.id.value = id;
+        deleteForm.action = '/cliente/' + id + '/delete';
+
+        deleteForm.querySelector('b').textContent = name;
+      });
+
+      deleteForm.querySelector('button:last-of-type').addEventListener('click', function() {
+        overlay.classList.remove('active');
+      });
+    }
+
+    search.addEventListener('keyup', async function() {
+      const req = await fetch(URL + 'search', {
+        method: 'POST',
+        body: this.value
+      });
+
+      const res = await req.text();
+
+      tbody.innerHTML = res;
+
+      selectLines();
     });
-
-    deleteItem.addEventListener('click', function() {
-      overlay.classList.add('active');
-
-      const name = trMarked.children[0].textContent;
-      const id = trMarked.dataset.id;
-
-      deleteForm.id.value = id;
-      deleteForm.action = '/cliente/' + id + '/delete';
-
-      deleteForm.querySelector('b').textContent = name;
-    });
-
-    deleteForm.querySelector('button:last-of-type').addEventListener('click', function() {
-      overlay.classList.remove('active');
-    });
-
   </script>
 </body>
 </html>
