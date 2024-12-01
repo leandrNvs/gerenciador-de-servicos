@@ -1,4 +1,4 @@
-@php
+<?php
   use function \Src\Helpers\assets;
   use function \Src\Helpers\route;
 
@@ -34,7 +34,7 @@
       'arrow' => true
     ],
   ]
-@endphp
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +42,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JRC - Página inicial</title>
-  <link rel="stylesheet" href="{{assets('css/home.css')}}">
+  <link rel="stylesheet" href="<?=assets('css/home.css')?>">
 </head>
 <body>
   <div class="overlay">
     <!-- FORMULÁRIO PARA EXCLUSÃO DE REGISTRO  -->
-    <form action="{{route('client.delete')}}" method="POST" class="delete-form">
-      @delete
+    <form action="<?=route('client.delete')?>" method="POST" class="delete-form">
+      <input type="hidden" name="_method" value="delete" />
       <input type="hidden" name="id" value="">
       <h2>Confirme a exclusão</h2>
       <div>
@@ -65,7 +65,7 @@
       <input type="search" name="search" placeholder="Procuper pelo nome do cliente ou carro" />
     </form>
 
-    <a href="{{route('pages.create')}}" class="add">
+    <a href="<?=route('pages.create')?>" class="add">
       <img src="/assets/images/plus.svg" alt="">
       Adicionar novo serviço
     </a>
@@ -74,19 +74,19 @@
     <table>
       <thead>
         <tr>
-          @foreach($fields as $field)
+          <?php foreach($fields as $field): ?>
             <th>
               <span>
-                <img src="{{assets('images/' . $field['icon'])}}" alt="" />
+                <img src="<?=assets('images/' . $field['icon'])?>" alt="" />
 
-                {{$field['field']}}
+                <?=$field['field']?>
 
-                @if($field['arrow'])
-                  <img src="{{assets('images/arrow.svg')}}" alt="" />
-                @endif
+                <?php if($field['arrow']): ?>
+                  <img src="<?=assets('images/arrow.svg')?>" alt="" />
+                <?php endif; ?>
               </span>
             </th>
-          @endforeach
+          <?php endforeach; ?>
         </tr>
       </thead>
       <tbody>
@@ -97,10 +97,10 @@
   <!-- MENU DE AÇÕES -->
   <div class="menu">
     <a href="javascript:void(0)">Marcar/desmarcar como concluído</a>
-    <a href="{{route('pages.update')}}" class="update-item">Alterar dados</a>
+    <a href="<?=route('pages.update')?>" class="update-item">Alterar dados</a>
     <a href="javascript:void(0)" class="delete-item">Apagar</a>
   </div>
 
-  <script src="{{assets('js/home.js')}}"></script>
+  <script src="<?=assets('js/home.js')?>"></script>
 </body>
 </html>

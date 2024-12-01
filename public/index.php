@@ -1,41 +1,26 @@
 <?php
+define('ROOT', dirname(__DIR__));
 
-use App\Models\Car;
-use App\Models\Client;
-use App\Models\Service;
+use App\Controllers\Pages;
 use Src\Database\Database;
-use Src\Database\Table;
+use Src\Http\Kernel;
+use Src\Http\Request;
+use Src\Routing\Routes;
+use Src\Views\View;
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once ROOT . '/vendor/autoload.php';
 
-Database::initialize(dirname(__DIR__) . '/database/database.db');
+Database::initialize(ROOT . '/database/database.db');
+View::path(ROOT . '/views/');
 
-var_dump(
-    Table::schema(Client::class)
-        ->identifier()
-        ->varchar('name', 50)
-        ->varchar('contact', 11)
-        ->get()
-);
+Routes::get('/', [Pages::class, 'index'])->name('pages.home');
 
-var_dump(
-    Table::schema(Car::class)
-        ->identifier()
-        ->varchar('brand', 30)
-        ->varchar('type', 30)
-        ->varchar('car_license_plate', 10)
-        ->year('year')
-        ->text('problem')
-        ->foreignKeyFor(Client::class)
-        ->get()
-);
+Routes::get('/criar-novo-registro', [Pages::class, 'create'])->name('pages.create');
 
-var_dump(
-    Table::schema(Service::class)
-        ->identifier()
-        ->text('service')
-        ->decimal('price')
-        ->date('service_date')
-        ->foreignKeyFor(Car::class)
-        ->get()
-);
+Routes::get('/cliente/{id}/atualizar', [Pages::class, 'update'])->name('pages.update');
+
+Routes::delete('/cliente/{id}/apagar', fn() => 'deleting')->name('client.delete');
+
+$response = Kernel::handle(Request::capture());
+
+die($response);

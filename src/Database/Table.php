@@ -23,9 +23,11 @@ final class Table
         $reflection = new ReflectionClass($model);
 
         $primaryKey = $reflection->getProperty('primaryKey')->getDefaultValue();
-        $tableName = explode('\\', $reflection->getName());
+        $tableName = $reflection->getProperty('table')->getDefaultValue() ?? explode('\\', $reflection->getName());
 
-        return new static(strtolower(end($tableName)), $primaryKey);
+        $table = is_array($tableName)? end($tableName) : $tableName;
+
+        return new static(strtolower($table), $primaryKey);
     }
 
     public function identifier($col = null)
@@ -70,6 +72,7 @@ final class Table
         return $this;
     }
 
+
     public function foreignKeyFor($model)
     {
         $reflection = new ReflectionClass($model);
@@ -89,9 +92,9 @@ final class Table
 
     public function optional()
     {
-        $index = count($this->tableColumns) - 1;
+        $index = $this->getLastItem();
 
-        $this->tableColumns[$index] = str_replace('NOT NULL', '', $index);
+        $this->tableColumns[$index] = str_replace(' NOT NULL', '', $this->tableColumns[$index]);
 
         return $this;
     }
@@ -118,5 +121,13 @@ final class Table
 
         return null;
     }
+
+    private function getLastItem()
+    {
+        $key = array_keys($this->tableColumns);
+
+        return end($key);
+    }
+
 
 }

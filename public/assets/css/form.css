@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    outline: none;
+}
+
+div.form-control {
+    background: #e8e8e8;
+}
+
+main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+div.links {
+    margin-bottom: 1rem;
+}
+
+div.links a {
+    text-decoration: none;
+    color: #000;
+}
+
+div.links a:hover {
+    text-decoration: underline;
+}
+
+form {
+    display: grid;
+    gap: 2rem;
+}
+
+form > div {
+    display: grid;
+    gap: 2rem;
+}
+
+form > div > div {
+    display: grid;
+    gap: 1rem;
+}
+
+div.form-control {
+    display: grid;
+    padding: .5rem 1rem;
+    width: 100%;
+    border-radius: .6rem;
+}
+
+div.form-control label {
+    color: #333;
+    font-weight: 800;
+    text-transform: capitalize;
+    font-size: 0.925rem;
+}
+
+div.row {
+    display: flex;
+    gap: 2rem;
+}
+
+div.form-control input,
+div.form-control textarea {
+    background: transparent;
+    resize: none;
+    border: 0;
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+
+div.form-control input {
+    padding-top: 10px;
+}
+
+div.buttons-container {
+    display: flex;
+    gap: 1rem;
+}
+
+div.buttons-container > * {
+    padding: 1rem;
+    background: gray;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+div.buttons-container button {
+    background: dodgerblue;
+    opacity: .7;
+    transition: .5s;
+}
+
+div.buttons-container button:hover {
+    opacity: 1;
+}
+
+div.buttons-container a {
+    background: transparent;
+    color: #000;
+}

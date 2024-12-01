@@ -1,123 +1,15 @@
+@php
+  use function \Src\Helpers\assets;
+  use function \Src\Helpers\route;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      outline: none;
-    }
-
-    div.form-control {
-      background: #e8e8e8;
-    }
-
-    main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    h3 {
-      font-size: 2rem;
-    }
-
-    div.links {
-      margin-bottom: 1rem;
-    }
-
-    div.links a {
-      text-decoration: none;
-      color: #000;
-    }
-
-    div.links a:hover {
-      text-decoration: underline;
-    }
-
-    form {
-      display: grid;
-      gap: 2rem;
-    }
-
-    form > div {
-      display: grid;
-      gap: 2rem;
-    }
-
-    form > div > div {
-      display: grid;
-      gap: 1rem;
-    }
-
-    div.form-control {
-      display: grid;
-      padding: .5rem 1rem;
-      width: 100%;
-      border-radius: .6rem;
-    }
-
-    div.form-control label {
-      color: #333;
-      font-weight: 800;
-      text-transform: capitalize;
-      font-size: 0.925rem;
-    }
-
-    div.row {
-      display: flex;
-      gap: 2rem;
-    }
-
-    div.form-control input,
-    div.form-control textarea {
-      background: transparent;
-      resize: none;
-      border: 0;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-    }
-
-    div.form-control input {
-      padding-top: 10px;
-    }
-
-    div.buttons-container {
-      display: flex;
-      gap: 1rem;
-    }
-
-    div.buttons-container > * {
-      padding: 1rem;
-      background: gray;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #fff;
-      border: none;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    div.buttons-container button {
-      background: dodgerblue;
-      opacity: .7;
-      transition: .5s;
-    }
-
-    div.buttons-container button:hover {
-      opacity: 1;
-    }
-
-    div.buttons-container a {
-      background: transparent;
-      color: #000;
-    }
-  </style>
+  <title>JRC - Criar novo serviço</title>
+  <link rel="stylesheet" href="{{assets('css/form.css')}}">
 </head>
 <body>
 
@@ -138,6 +30,17 @@
 
           <div class="form-control">
             <label for="contact">contato</label>
+            <input type="text" name="contact" id="contatc">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-control">
+            <label for="client">CPF</label>
+            <input type="text" name="client" id="client" autofocus>
+          </div>
+
+          <div class="form-control">
+            <label for="contact">Endereço</label>
             <input type="text" name="contact" id="contatc">
           </div>
         </div>
@@ -164,8 +67,28 @@
             <input type="text" name="plate" id="plate">
           </div>
         </div>
+        <div class="row">
+          <div class="form-control">
+            <label for="client">Cor</label>
+            <input type="text" name="client" id="client" autofocus>
+          </div>
+
+          <div class="form-control">
+            <label for="contact">KM atual</label>
+            <input type="text" name="contact" id="contatc">
+          </div>
+
+          <div class="form-control">
+            <label for="contact">Combustível</label>
+            <input type="text" name="contact" id="contatc">
+          </div>
+        </div>
         <div class="form-control">
-          <label for="problem">Defeito</label>
+          <label for="problem">Defeito informado</label>
+          <textarea name="problem" id="problem" rows="7"></textarea>
+        </div>
+        <div class="form-control">
+          <label for="problem">Defeito constatado</label>
           <textarea name="problem" id="problem" rows="7"></textarea>
         </div>
       </div>
@@ -193,5 +116,6 @@
     </form>
   </main>
   
+  <script src="{{assets('js/form.js')}}"></script>
 </body>
 </html>

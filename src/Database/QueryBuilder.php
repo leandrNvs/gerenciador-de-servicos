@@ -132,12 +132,7 @@ final class QueryBuilder
 
         $data = array_merge($this->whereData, $data);
 
-        $conn = Database::getInstance();
-
-        $stmt = $conn->prepare($this->query);
-        $result = $stmt->execute($data);
-
-        $conn->close();
+        return $this->query;
     }
 
     private function getWhereData($data)
@@ -186,5 +181,15 @@ final class QueryBuilder
         endswitch;
 
         return $query;
+    }
+
+    public function get($data)
+    {
+        $this->query = $this->mountFields(
+            $this->query . $this->where . $this->orderBy . $this->limit,
+            $data
+        );
+
+        return $this->query;
     }
 }

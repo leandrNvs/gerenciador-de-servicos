@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #F5F5F5;
+}
+
+main {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form.search {
+    margin-bottom: 1rem;
+}
+
+form.search input {
+    border: 1px solid #ffff;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    font-size: 1rem;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 1.5rem;
+    padding-left: 40px;
+    background: #fff url('/assets/images/search.svg') no-repeat 4% 50%;
+}
+
+a.add {
+    font-size: 1.1rem;
+    color: #fff;
+    padding: 1rem;
+    background: dodgerblue;
+    font-weight: bold;
+    align-self: self-end;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    opacity: 0.7;
+    cursor: pointer;
+    transition: .3s;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    text-decoration: none;
+}
+
+a.add:hover {
+    opacity: 1;
+}
+
+table {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: #222;
+    padding: 1rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+th span {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    padding: .8rem 1rem;
+}
+
+tbody tr:hover {
+    background: #F0F0F0;
+}
+
+div.overlay {
+    background: rgba(0, 0, 0, .8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    
+    padding: 4rem;
+
+    display: none;
+    place-items: center;
+}
+
+div.overlay.active {
+    display: grid;
+}
+
+div.menu {
+    background: #fff;
+    border-radius: .6rem;
+    display: none;
+    width: fit-content;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border: 1px solid #ddd;
+    position: absolute;
+}
+
+div.menu a {
+    padding: 1rem;
+    text-decoration: none;
+    color: #222;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+}
+
+div.menu a:hover {
+    background: #eee;
+}
+
+form.delete-form {
+    background: #fff;
+}
+
+form.delete-form h2 {
+    background: gray;
+    color: #fff;
+    padding: 1rem 1rem 1rem 2rem;
+}
+
+form.delete-form div {
+    padding: 2rem;
+}
+
+form.delete-form p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+form.delete-form button {
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    border: 0;
+    cursor: pointer;
+}
+
+form.delete-form button:first-of-type {
+    background: red;
+    color: #fff;
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+form.delete-form button:last-of-type {
+    font-weight: bold;
+    background: transparent;
+}
