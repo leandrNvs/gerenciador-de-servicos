@@ -2,8 +2,6 @@
 
 namespace Src\Http;
 
-use Closure;
-use LDAP\Result;
 use ReflectionFunction;
 use ReflectionMethod;
 use Src\Routing\Routes;
@@ -40,7 +38,7 @@ final class Kernel
             array_unshift($parameters, Request::getInstance());
         endif;
 
-        return call_user_func($closure, $parameters);
+        return call_user_func($closure, ...$parameters);
     }
 
     private static function pattern($pattern)

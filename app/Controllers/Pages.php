@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Src\Session\Session;
+use Src\Validation\Validate;
 use Src\Views\View;
 
 class Pages

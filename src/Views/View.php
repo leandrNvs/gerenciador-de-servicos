@@ -3,6 +3,8 @@
 namespace Src\Views;
 
 use Exception;
+use Src\Session\Session;
+use Src\Validation\Validate;
 
 final class View
 {
@@ -31,6 +33,10 @@ final class View
         if($wasModified):
             file_put_contents($cachedFile ,Template::parse(file_get_contents($file)));
         endif;
+
+        $data['template_error'] = Session::get(Validate::VALIDATE_ERROR);
+        $data['template_messages'] = Session::get(Validate::VALIDATE_MESSAGES);
+        $data['template_bag'] = Session::get(Validate::VALIDATE_BAG);
 
         foreach($data as $key => $value):
             $$key = $value; 

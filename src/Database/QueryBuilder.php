@@ -132,7 +132,14 @@ final class QueryBuilder
 
         $data = array_merge($this->whereData, $data);
 
-        return $this->query;
+        $conn = Database::getInstance();
+
+        $stmt = $conn->prepare($this->query);
+        $stmt->execute($data);
+
+        return str_starts_with(strtolower($this->query), 'insert')
+            ? $conn->lastInsertId()
+            : ['data' => $stmt->fetchAll(), 'rows' => $stmt->rowCount()];
     }
 
     private function getWhereData($data)

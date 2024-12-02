@@ -32,7 +32,7 @@ final class Table
 
     public function identifier($col = null)
     {
-        $this->tableColumns[$col ?? $this->primaryKey] = "INTEGER UNSIGNED PRIMARY KEY AUTOINCREMENT";
+        $this->tableColumns[$col ?? $this->primaryKey] = "INTEGER PRIMARY KEY AUTOINCREMENT";
 
         return $this;
     }
@@ -84,8 +84,8 @@ final class Table
 
         $fkCol = $tableName . $primaryKey;
 
-        $this->tableColumns[$fkCol] = "INTEGER UNSIGNED";
-        $this->tableColumns['FOREIGN KEY'] = "{$fkCol} REFERENCES {$tableName}({$primaryKey})";
+        $this->tableColumns[$fkCol] = "INTEGER";
+        $this->tableColumns['FOREIGN KEY'] = "({$fkCol}) REFERENCES {$tableName}({$primaryKey})";
 
         return $this;
     }
@@ -116,10 +116,10 @@ final class Table
         $sql = str_replace('{{columns}}', implode(",\n", $cols), $sql);
 
         echo '<pre>';
-        echo $sql;
+        var_dump($sql);
         echo '</pre>';
 
-        return null;
+        return $sql;
     }
 
     private function getLastItem()

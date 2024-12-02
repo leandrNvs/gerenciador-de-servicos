@@ -19,79 +19,125 @@
       >
       <a href="/cliente" style="color: dodgerblue;">Cadastrar novo serviço</a>
     </div>
-    <form action="/cliente" method="POST" autocomplete="off">
-      <div class="clients">
+    <form action="{{route('client.store')}}" method="POST" autocomplete="off">
+
+      <!-- CLIENTE -->
+      <div class="client">
         <h3>Dados do cliente</h3>
+
         <div class="row">
           <div class="form-control">
-            <label for="client">cliente</label>
-            <input type="text" name="client" id="client" autofocus>
+            <label for="name">Nome</label>
+            <input type="text" name="name" value="@bag('name')" id="name" autofocus>
+            <div class="message @hasError('name', 'active')">
+              @errorFirst('name')
+            </div>
           </div>
 
           <div class="form-control">
-            <label for="contact">contato</label>
-            <input type="text" name="contact" id="contatc">
+            <label for="phone">Telefone</label>
+            <input type="text" name="phone" value="@bag('phone')" id="phone">
+            <div class="message @hasError('phone', 'active')">
+              @errorFirst('phone')
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="form-control">
-            <label for="client">CPF</label>
-            <input type="text" name="client" id="client" autofocus>
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" value="@bag('cpf')" autofocus>
+            <div class="message @hasError('cpf', 'active')">
+              @errorFirst('cpf')
+            </div>
           </div>
 
           <div class="form-control">
-            <label for="contact">Endereço</label>
-            <input type="text" name="contact" id="contatc">
+            <label for="address">Endereço</label>
+            <input type="text" name="address" value="@bag('address')" id="address">
+            <div class="message @hasError('address', 'active')">
+              @errorFirst('address')
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- CARRO -->
       <div class="cars">
         <h3>Dados do veículo</h3>
         <div class="row">
           <div class="form-control">
             <label for="brand">marca</label>
-            <input type="text" name="brand" id="brand">
+            <input type="text" name="brand" value="@bag('brand')" id="brand">
+            <div class="message @hasError('brand', 'active')">
+              @errorFirst('brand')
+            </div>
           </div>
           <div class="form-control">
             <label for="model">modelo</label>
-            <input type="text" name="model" id="model">
+            <input type="text" name="model" value="@bag('model')" id="model">
+            <div class="message @hasError('model', 'active')">
+              @errorFirst('model')
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="form-control">
             <label for="year">ano</label>
-            <input type="text" name="year" id="year">
+            <input type="text" name="year" value="@bag('year')" id="year">
+            <div class="message @hasError('year', 'active')">
+              @errorFirst('year')
+            </div>
           </div>
           <div class="form-control">
             <label for="plate">placa</label>
-            <input type="text" name="plate" id="plate">
+            <input type="text" name="plate" value="@bag('plate')" id="plate">
+            <div class="message @hasError('plate', 'active')">
+              @errorFirst('plate')
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="form-control">
-            <label for="client">Cor</label>
-            <input type="text" name="client" id="client" autofocus>
+            <label for="color">Cor</label>
+            <input type="text" name="color" value="@bag('color')" id="color" autofocus>
+            <div class="message @hasError('color', 'active')">
+              @errorFirst('color')
+            </div>
           </div>
 
           <div class="form-control">
-            <label for="contact">KM atual</label>
-            <input type="text" name="contact" id="contatc">
+            <label for="km">KM atual</label>
+            <input type="text" name="km" value="@bag('km')" id="km">
+            <div class="message @hasError('km', 'active')">
+              @errorFirst('km')
+            </div>
           </div>
 
           <div class="form-control">
-            <label for="contact">Combustível</label>
-            <input type="text" name="contact" id="contatc">
+            <label for="fuel">Combustível</label>
+            <input type="text" name="fuel" value="@bag('fuel')" id="fuel">
+            <div class="message @hasError('fuel', 'active')">
+              @errorFirst('fuel')
+            </div>
           </div>
         </div>
         <div class="form-control">
-          <label for="problem">Defeito informado</label>
-          <textarea name="problem" id="problem" rows="7"></textarea>
+          <label for="reported_defect">Defeito informado</label>
+          <textarea name="reported_defect" id="reported_defect" rows="7">@bag('reported_defect')</textarea>
+            <div class="message @hasError('reported_defect', 'active')">
+              @errorFirst('reported_defect')
+            </div>
         </div>
         <div class="form-control">
-          <label for="problem">Defeito constatado</label>
-          <textarea name="problem" id="problem" rows="7"></textarea>
+          <label for="problem_found">Defeito constatado</label>
+          <textarea name="problem_found" id="problem_found" rows="7">@bag('problem_found')</textarea>
+            <div class="message @hasError('problem_found', 'active')">
+              @errorFirst('problem_found')
+            </div>
         </div>
       </div>
+
+      <!-- SERVIÇO -->
       <div class="services">
         <h3>Reparos necessários</h3>
         <div class="form-control">
@@ -111,7 +157,7 @@
       </div>
       <div class="buttons-container">
         <button type="submit">Concluir cadastro</button>
-        <a href="/">Cancelar</button>
+        <a href="/">Cancelar</a>
       </div>
     </form>
   </main>

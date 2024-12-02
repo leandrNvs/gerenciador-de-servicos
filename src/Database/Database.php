@@ -2,7 +2,8 @@
 
 namespace Src\Database;
 
-use App\Models\Model;
+use PDO;
+use PDOException;
 
 final class Database
 {
@@ -31,10 +32,13 @@ final class Database
      */
     public static function initialize($path)
     {
-        if(!self::$instance):
-            self::$instance = new \SQLite3($path, SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-        endif;
+        try {
+            $conn = new PDO('sqlite:' . $path);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        return self::$instance;
+            self::$instance = $conn;
+        } catch(PDOException $e) {
+            die($e->getMessage());
+        }
     }
 }

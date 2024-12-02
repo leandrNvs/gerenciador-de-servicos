@@ -6,8 +6,11 @@ class Request
 {
     private static $instance;
 
+    private $input;
+
     public function __construct()
     {
+        $this->input = $_POST;
     }
 
     public static function capture()
@@ -27,6 +30,11 @@ class Request
         unset($_POST['_method']);
 
         return $method;
+    }
+
+    public function input($input, $default = null)
+    {
+        return $this->input[$input] ?? $default;
     }
 
     public static function getInstance()

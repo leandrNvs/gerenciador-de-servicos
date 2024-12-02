@@ -128,9 +128,9 @@ class Model
     {
         $query = QueryBuilder::table($this->getTableName())
             ->insert()
-            ->get($this->data);
+            ->execute($this->data);
 
-        $this->data[$this->primaryKey] = 1;
+        $this->id = $query;
 
         return $this;
     }
@@ -144,9 +144,9 @@ class Model
             [$fk => $this->getId()]
         );
 
-        $query = QueryBuilder::table($object->getTableName())
+        QueryBuilder::table($object->getTableName())
             ->insert()
-            ->get($data);
+            ->execute($data);
 
         return $this;
     }

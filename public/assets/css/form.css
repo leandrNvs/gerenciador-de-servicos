@@ -40,7 +40,7 @@ form {
 
 form > div {
     display: grid;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 form > div > div {
@@ -53,6 +53,7 @@ div.form-control {
     padding: .5rem 1rem;
     width: 100%;
     border-radius: .6rem;
+    position: relative;
 }
 
 div.form-control label {
@@ -60,6 +61,9 @@ div.form-control label {
     font-weight: 800;
     text-transform: capitalize;
     font-size: 0.925rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 div.row {
@@ -109,4 +113,37 @@ div.buttons-container button:hover {
 div.buttons-container a {
     background: transparent;
     color: #000;
+}
+
+div.message {
+    background-color: #ff4d4d;
+    color: #fff;
+    font-weight: 700;
+    padding: .7rem 1rem;
+
+    position: absolute;
+    bottom: 100%;
+    left: 10%;
+    z-index: 1;
+
+    border-radius: .6rem .6rem .6rem 0;
+
+    display: none;
+}
+
+div.message.active {
+    display: block;
+}
+
+div.message::before {
+    content: '';
+    display: block;
+    border: 20px solid transparent;
+    height: 1px;
+    width: 1px;
+    border-left-color: #ff4d4d; 
+
+    position: absolute;
+    left: 0;
+    bottom: -10px;
 }
