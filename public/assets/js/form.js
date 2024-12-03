@@ -1,58 +1,42 @@
 const form = document.querySelector('form');
 const submit = document.querySelector('form button[type="submit"]');
 
-const fields = {
-    name: 'alpha|min:1',
-    phone: 'numeric|min:1|max:11',
-    cpf: 'numeric|min:1|max:11',
-    address: 'alphanumeric|min:1',
-    brand: 'alpha|min:1',
-    model: 'alphanumeric|min:1',
-    year: 'numeric|min:1|max:4',
-    plate: 'alphanumeric|min:1',
-    color: 'alpha|min:1',
-    km: 'numeric|min:1',
-    fuel: 'numeric|min:1',
-    reported_defect: 'optional|alphanumeric|max:500',
-    problem_found: 'optional|alphanumeric|max:500',
-};
+form.addEventListener('submit', function(e) {
+    Object.keys(fields).forEach(field => removeError(this[field]));
 
-// form.addEventListener('submit', function(e) {
-//     Object.keys(fields).forEach(field => removeError(this[field]));
+    let error = 0;
 
-//     let error = 0;
+    for(const field in fields) {
+        const rules = fields[field].split('|');
 
-//     for(const field in fields) {
-//         const rules = fields[field].split('|');
+        const skip = (rules.includes('optional') && this[field].value === '');
 
-//         const skip = (rules.includes('optional') && this[field].value === '');
+        if(!skip) {
+            if(rules.indexOf('optional') >= 0) {
+                rules.splice(rules.indexOf('optional'), 1);
+            }
 
-//         if(!skip) {
-//             if(rules.indexOf('optional') >= 0) {
-//                 rules.splice(rules.indexOf('optional'), 1);
-//             }
+            for(const rule of rules) {
+                const parameters = rule.split(':');
+                const index = parameters.shift();
 
-//             for(const rule of rules) {
-//                 const parameters = rule.split(':');
-//                 const index = parameters.shift();
+                parameters.push(this[field].value);
 
-//                 parameters.push(this[field].value);
+                if(validation[index].rule(...parameters)) {
+                    const message = typeof(validation[index].message) == 'function'
+                        ? validation[index].message(...parameters)
+                        : validation[index].message;
 
-//                 if(validation[index].rule(...parameters)) {
-//                     const message = typeof(validation[index].message) == 'function'
-//                         ? validation[index].message(...parameters)
-//                         : validation[index].message;
+                    setError(this[field], message);
+                    window.scrollTo(0, 0);
+                    ++error;
+                }
+            }
+        }
+    }
 
-//                     setError(this[field], message);
-//                     window.scrollTo(0, 0);
-//                     ++error;
-//                 }
-//             }
-//         }
-//     }
-
-//     if(error > 0) e.preventDefault();
-// });
+    if(error > 0) e.preventDefault();
+});
 
 const validation = {
     alpha: {

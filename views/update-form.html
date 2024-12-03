@@ -1,198 +1,186 @@
+@php
+  use function \Src\Helpers\assets;
+  use function \Src\Helpers\route;
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      outline: none;
-    }
-
-    div.form-control {
-      background: #e8e8e8;
-    }
-
-    main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    h3 {
-      font-size: 2rem;
-    }
-
-    div.links {
-      margin-bottom: 1rem;
-    }
-
-    div.links a {
-      text-decoration: none;
-      color: #000;
-    }
-
-    div.links a:hover {
-      text-decoration: underline;
-    }
-
-    form {
-      display: grid;
-      gap: 2rem;
-    }
-
-    form > div {
-      display: grid;
-      gap: 2rem;
-    }
-
-    form > div > div {
-      display: grid;
-      gap: 1rem;
-    }
-
-    div.form-control {
-      display: grid;
-      padding: .5rem 1rem;
-      width: 100%;
-      border-radius: .6rem;
-    }
-
-    div.form-control label {
-      color: #333;
-      font-weight: 800;
-      text-transform: capitalize;
-      font-size: 0.925rem;
-    }
-
-    div.row {
-      display: flex;
-      gap: 2rem;
-    }
-
-    div.form-control input,
-    div.form-control textarea {
-      background: transparent;
-      resize: none;
-      border: 0;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-    }
-
-    div.form-control input {
-      padding-top: 10px;
-    }
-
-    div.buttons-container {
-      display: flex;
-      gap: 1rem;
-    }
-
-    div.buttons-container > * {
-      padding: 1rem;
-      background: gray;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #fff;
-      border: none;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    div.buttons-container button {
-      background: dodgerblue;
-      opacity: .7;
-      transition: .5s;
-    }
-
-    div.buttons-container button:hover {
-      opacity: 1;
-    }
-
-    div.buttons-container a {
-      background: transparent;
-      color: #000;
-    }
-  </style>
+  <title>JRC - Criar novo serviço</title>
+  <link rel="stylesheet" href="{{assets('css/form.css')}}">
 </head>
 <body>
-
   <main>
     <div class="links">
       <a href="/">Página inicial</a>
       >
-      <a href="/" style="color: dodgerblue;">Atualizar dados</a>
+      <a href="#" style="color: dodgerblue;">Atualizar dados</a>
     </div>
-    <form action="/cliente/{{id}}/update" method="POST" autocomplete="off">
-      <input type="hidden" name="_method" value="put">
-      <div class="clients">
+    <form action="{{route('client.update', ['id' => $data->id])}}" method="POST" autocomplete="off">
+      @put
+      
+      <input type="hidden" name="clientid" value="{{$data->id}}">
+
+      <!-- CLIENTE -->
+      <div class="client">
         <h3>Dados do cliente</h3>
+
         <div class="row">
           <div class="form-control">
-            <label for="client">cliente</label>
-            <input type="text" name="client" id="client" placeholder="{{name}}" autofocus>
+            <label for="name">Nome</label>
+            <input type="text" name="name" placeholder="{{$data->name}}" value="@bag('name')" id="name" autofocus>
+            <div class="message @hasError('name', 'active')">
+              @errorFirst('name')
+            </div>
           </div>
 
           <div class="form-control">
-            <label for="contact">contato</label>
-            <input type="text" name="contact" placeholder="{{contact}}" id="contact">
+            <label for="phone">Telefone</label>
+            <input type="text" name="phone" placeholder="{{$data->phone}}" value="@bag('phone')" id="phone">
+            <div class="message @hasError('phone', 'active')">
+              @errorFirst('phone')
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-control">
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" placeholder="{{$data->cpf}}" value="@bag('cpf')" autofocus>
+            <div class="message @hasError('cpf', 'active')">
+              @errorFirst('cpf')
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label for="address">Endereço</label>
+            <input type="text" name="address" placeholder="{{$data->address}}" value="@bag('address')" id="address">
+            <div class="message @hasError('address', 'active')">
+              @errorFirst('address')
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- CARRO -->
       <div class="cars">
         <h3>Dados do veículo</h3>
         <div class="row">
           <div class="form-control">
             <label for="brand">marca</label>
-            <input type="text" name="brand" placeholder="{{brand}}" id="brand">
+            <input type="text" name="brand" placeholder="{{$data->car->brand}}" value="@bag('brand')" id="brand">
+            <div class="message @hasError('brand', 'active')">
+              @errorFirst('brand')
+            </div>
           </div>
           <div class="form-control">
             <label for="model">modelo</label>
-            <input type="text" name="model" placeholder="{{model}}" id="model">
+            <input type="text" name="model" placeholder="{{$data->car->model}}" value="@bag('model')" id="model">
+            <div class="message @hasError('model', 'active')">
+              @errorFirst('model')
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="form-control">
             <label for="year">ano</label>
-            <input type="text" name="year" placeholder="{{year}}" id="year">
+            <input type="text" name="year" placeholder="{{$data->car->year}}" value="@bag('year')" id="year">
+            <div class="message @hasError('year', 'active')">
+              @errorFirst('year')
+            </div>
           </div>
           <div class="form-control">
             <label for="plate">placa</label>
-            <input type="text" name="plate" placeholder="{{plate}}" id="plate">
+            <input type="text" name="plate" placeholder="{{$data->car->plate}}" value="@bag('plate')" id="plate">
+            <div class="message @hasError('plate', 'active')">
+              @errorFirst('plate')
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-control">
+            <label for="color">Cor</label>
+            <input type="text" name="color" placeholder="{{$data->car->color}}" value="@bag('color')" id="color" autofocus>
+            <div class="message @hasError('color', 'active')">
+              @errorFirst('color')
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label for="km">KM atual</label>
+            <input type="text" name="km" placeholder="{{$data->car->km}}" value="@bag('km')" id="km">
+            <div class="message @hasError('km', 'active')">
+              @errorFirst('km')
+            </div>
+          </div>
+
+          <div class="form-control">
+            <label for="fuel">Combustível</label>
+            <input type="text" name="fuel" placeholder="{{$data->car->fuel}}" value="@bag('fuel')" id="fuel">
+            <div class="message @hasError('fuel', 'active')">
+              @errorFirst('fuel')
+            </div>
           </div>
         </div>
         <div class="form-control">
-          <label for="problem">Defeito</label>
-          <textarea name="problem" id="problem" placeholder="{{problem}}" rows="7"></textarea>
+          <label for="reported_defect">Defeito informado</label>
+          <textarea name="reported_defect" id="reported_defect" placeholder="{{$data->car->reported_defect}}" rows="7">@bag('reported_defect')</textarea>
+            <div class="message @hasError('reported_defect', 'active')">
+              @errorFirst('reported_defect')
+            </div>
+        </div>
+        <div class="form-control">
+          <label for="problem_found">Defeito constatado</label>
+          <textarea name="problem_found" id="problem_found" placeholder="{{$data->car->problem_found}}" rows="7">@bag('problem_found')</textarea>
+            <div class="message @hasError('problem_found', 'active')">
+              @errorFirst('problem_found')
+            </div>
         </div>
       </div>
+
+      <!-- SERVIÇO -->
       <div class="services">
         <h3>Reparos necessários</h3>
         <div class="form-control">
           <label for="changes">Peças a serem substituídas</label>
-          <textarea name="changes" id="changes" placeholder="{{service}}" rows="7"></textarea>
+          <textarea name="changes" id="changes" rows="7"></textarea>
         </div>
         <div class="row">
           <div class="form-control">
             <label for="price">preço do serviço</label>
-            <input type="text" name="price" placeholder="{{price}}" id="price">
+            <input type="text" name="price" id="price">
           </div>
           <div class="form-control">
             <label for="service_date">Data do serviço</label>
-            <input type="text" name="service_date" placeholder="{{date}}" id="service_date">
+            <input type="text" name="service_date" id="service_date">
           </div>
         </div>
       </div>
       <div class="buttons-container">
-        <button type="submit">Salvar alterações</button>
-        <a href="/">Cancelar</button>
+        <button type="submit">Concluir cadastro</button>
+        <a href="/">Cancelar</a>
       </div>
     </form>
   </main>
   
+  <script>
+    const fields = {
+      name: 'optional|alpha|min:1',
+      phone: 'optional|numeric|min:1|max:11',
+      cpf: 'optional|numeric|min:1|max:11',
+      address: 'optional|alphanumeric|min:1',
+      brand: 'optional|alpha|min:1',
+      model: 'optional|alphanumeric|min:1',
+      year: 'optional|numeric|min:1|max:4',
+      plate: 'optional|alphanumeric|min:1',
+      color: 'optional|alpha|min:1',
+      km: 'optional|numeric|min:1',
+      fuel: 'optional|numeric|min:1',
+      reported_defect: 'optional|alphanumeric|max:500',
+      problem_found: 'optional|alphanumeric|max:500',
+    };
+  </script>
+  <script src="{{assets('js/form.js')}}"></script>
 </body>
 </html>

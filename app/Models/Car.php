@@ -5,6 +5,7 @@ namespace App\Models;
 class Car extends Model
 {
     protected $fillable = [
+        'id',
         'brand',
         'model',
         'year',

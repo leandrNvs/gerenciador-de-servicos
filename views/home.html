@@ -52,7 +52,7 @@
       <input type="hidden" name="id" value="">
       <h2>Confirme a exclusão</h2>
       <div>
-        <p>Tem certeza que deseja apagar os dados do cliente <b></b>?</p>
+        <p>Tem certeza que deseja apagar os dados de <b></b>?</p>
         <button type="submit">Confirmar</button>
         <button type="reset">Cancelar</button>
       </div>
@@ -90,6 +90,18 @@
         </tr>
       </thead>
       <tbody>
+        @foreach($data as $d)
+          <tr data-id="{{$d->id}}">
+            <td>
+              <a href="/cliente/{{$d->id}}">{{$d->name}}</a>
+            </td>
+            <td>{{$d->car->brand}}</td>
+            <td>{{$d->car->year}}</td>
+            <td>{{$d->car->model}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
   </main>

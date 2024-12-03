@@ -57,7 +57,7 @@ function selectLines()
     const id = trMarked.dataset.id;
 
     deleteForm.id.value = id;
-    deleteForm.action = '/cliente/' + id + '/delete';
+    deleteForm.action = '/cliente/' + id + '/apagar';
 
     deleteForm.querySelector('b').textContent = name;
     });

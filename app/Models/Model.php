@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Reflection;
+use ReflectionClass;
 use Src\Database\QueryBuilder;
 
 class Model
@@ -151,6 +153,74 @@ class Model
         return $this;
     }
 
+    public function update($data)
+    {
+        foreach($data as $key => $value):
+            if($value === '' || $value == $this->data[$key]):
+                unset($data[$key]);
+            else:
+                $this->data[$key] = $value;
+            endif;
+        endforeach;
+
+        if(empty($data)) return;
+
+        QueryBuilder::table($this->getTableName())->update()->where('id', $this->id)->execute($data);
+
+        return $this;
+    }
+
+    public function delete()
+    {
+        QueryBuilder::table($this->getTableName())
+            ->delete()
+            ->where('id', $this->id)
+            ->execute();
+
+        return $this;
+    }
+
+    public static function with($model)
+    {
+        $first = new ReflectionClass(get_called_class());
+
+        $primaryKey = $first->getProperty('primaryKey')->getDefaultValue();
+
+        $tableName = explode('\\', $first->getName());
+        $tableName = strtolower(end($tableName));
+
+        $second = new ReflectionClass($model);
+
+        $tableName2 = explode('\\', $second->getName());
+        $tableName2 = strtolower(end($tableName2));
+
+        $data1 = QueryBuilder::table($tableName)->select()->execute();
+
+        $ids = array_column($data1['data'], 'id');
+
+        $col = $tableName . $primaryKey;
+
+        $data2 = QueryBuilder::table($tableName2)->select()->whereIn($col, $ids)->execute();
+
+        $data = [];
+
+        foreach($data1['data'] as $d):
+            $model = call_user_func([get_called_class(), 'create'], $d);
+
+            $id = $model->id;
+
+            $item = array_filter($data2['data'], function($i) use($id, $col) {
+                return $i->{$col} == $id;
+            });
+
+            $model->{$tableName2} = call_user_func([$second->getName(), 'create'], end($item));
+
+            array_push($data, $model);
+        endforeach;
+
+        return $data;
+    }
+
     public static function where(...$args)
     {
 
@@ -158,6 +228,12 @@ class Model
 
     public static function getById($id)
     {
+        $tableName = explode('\\', get_called_class());
+        $table = strtolower(end($tableName));
+
+        $query = QueryBuilder::table($table)->select()->where('id', $id)->execute();
+
+        return call_user_func([implode('\\', $tableName), 'create'], $query['data'][0]);
     }
 
     /**

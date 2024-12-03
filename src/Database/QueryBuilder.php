@@ -4,6 +4,7 @@ namespace Src\Database;
 
 use Closure;
 use Exception;
+use PDO;
 
 final class QueryBuilder
 {
@@ -40,6 +41,22 @@ final class QueryBuilder
     public static function table($table)
     {
         return new static($table);
+    }
+
+    public function join($model, $as = null)
+    {
+        $this->query .= " INNER JOIN {$model}";
+
+        if($as) $this->query .= " as {$as}";
+
+        return $this;
+    }
+
+    public function on($join)
+    {
+        $this->query .= ' ON ' . $join;
+
+        return $this;
     }
 
     public function where(...$args)
@@ -105,6 +122,13 @@ final class QueryBuilder
         return $this;
     }
 
+    public function whereIn($col, $items)
+    {
+        $this->query .= ' WHERE '. $col .' IN (' . implode(', ', $items) .')';
+
+        return $this;
+    }
+
     public function orderBy($column, $direction = 'ASC')
     {
         if(!$this->orderBy):
@@ -123,7 +147,7 @@ final class QueryBuilder
         return $this;
     }
 
-    public function execute($data)
+    public function execute($data = [])
     {
         $this->query = $this->mountFields(
             $this->query . $this->where . $this->orderBy . $this->limit,
@@ -139,7 +163,7 @@ final class QueryBuilder
 
         return str_starts_with(strtolower($this->query), 'insert')
             ? $conn->lastInsertId()
-            : ['data' => $stmt->fetchAll(), 'rows' => $stmt->rowCount()];
+            : ['data' => $stmt->fetchAll(PDO::FETCH_OBJ), 'rows' => $stmt->rowCount()];
     }
 
     private function getWhereData($data)
@@ -190,7 +214,7 @@ final class QueryBuilder
         return $query;
     }
 
-    public function get($data)
+    public function get($data = [])
     {
         $this->query = $this->mountFields(
             $this->query . $this->where . $this->orderBy . $this->limit,

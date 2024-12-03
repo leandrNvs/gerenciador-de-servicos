@@ -162,6 +162,23 @@
     </form>
   </main>
   
+  <script>
+    const fields = {
+      name: 'alpha|min:1',
+      phone: 'numeric|min:1|max:11',
+      cpf: 'numeric|min:1|max:11',
+      address: 'alphanumeric|min:1',
+      brand: 'alpha|min:1',
+      model: 'alphanumeric|min:1',
+      year: 'numeric|min:1|max:4',
+      plate: 'alphanumeric|min:1',
+      color: 'alpha|min:1',
+      km: 'numeric|min:1',
+      fuel: 'numeric|min:1',
+      reported_defect: 'optional|alphanumeric|max:500',
+      problem_found: 'optional|alphanumeric|max:500',
+    };
+  </script>
   <script src="{{assets('js/form.js')}}"></script>
 </body>
 </html>

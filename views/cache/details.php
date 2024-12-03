@@ -1,6 +1,6 @@
-@php
+<?php
   use function \Src\Helpers\assets;
-@endphp
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,11 +175,11 @@
       <div class="row no-line order-info">
         <div>
           <span>Nome:</span>
-          <span>{{$data->name}}</span>
+          <span><?= $data->name ?></span>
         </div>
         <div class="border-left">
           <span>CPF:</span>
-          <span>{{$data->cpf}}</span>
+          <span><?= $data->cpf ?></span>
         </div>
       </div>
     </div>
@@ -187,11 +187,11 @@
       <div class="row no-line order-info">
         <div>
           <span>Endereço:</span>
-          <span>{{$data->address}}</span>
+          <span><?= $data->address ?></span>
         </div>
         <div class="border-left">
           <span>Telefone:</span>
-          <span>{{$data->phone}}</span>
+          <span><?= $data->phone ?></span>
         </div>
       </div>
     </div>
@@ -204,19 +204,19 @@
       <div class="row no-line order-info">
         <div>
           <span>Placa:</span>
-          <span>{{$data->car->plate}}</span>
+          <span><?= $data->car->plate ?></span>
         </div>
         <div class="border-left">
           <span>Marca:</span>
-          <span>{{$data->car->brand}}</span>
+          <span><?= $data->car->brand ?></span>
         </div>
         <div class="border-left">
           <span>Modelo:</span>
-          <span>{{$data->car->model}}</span>
+          <span><?= $data->car->model ?></span>
         </div>
         <div class="border-left">
           <span>Cor:</span>
-          <span>{{$data->car->color}}</span>
+          <span><?= $data->car->color ?></span>
         </div>
       </div>
     </div>
@@ -224,28 +224,28 @@
       <div class="row no-line order-info">
         <div>
           <span>Ano:</span>
-          <span>{{$data->car->year}}</span>
+          <span><?= $data->car->year ?></span>
         </div>
         <div class="border-left">
           <span>KM atual:</span>
-          <span>{{$data->car->km}} KM</span>
+          <span><?= $data->car->km ?> KM</span>
         </div>
         <div class="border-left">
           <span>Combustível:</span>
-          <span>{{$data->car->fuel}} Litros</span>
+          <span><?= $data->car->fuel ?> Litros</span>
         </div>
       </div>
     </div>
     <div class="order-text row">
       <div>
         <span class="bold">Problema informado:</span>
-        <span>{{$data->car->reported_defect}}</span>
+        <span><?= $data->car->reported_defect ?></span>
       </div>
     </div>
     <div class="order-text row">
       <div>
         <span class="bold">Problema constatado:</span>
-        <span>{{$data->car->problem_found}}</span>
+        <span><?= $data->car->problem_found ?></span>
       </div>
     </div>
 
@@ -391,7 +391,7 @@
   </main>
   
   <a href="/">
-    <img src="{{assets('images/home.svg')}}" alt="go to home">
+    <img src="<?= assets('images/home.svg') ?>" alt="go to home">
   </a>
 </body>
 </html>

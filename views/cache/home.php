@@ -42,17 +42,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JRC - Página inicial</title>
-  <link rel="stylesheet" href="<?=assets('css/home.css')?>">
+  <link rel="stylesheet" href="<?= assets('css/home.css') ?>">
 </head>
 <body>
   <div class="overlay">
     <!-- FORMULÁRIO PARA EXCLUSÃO DE REGISTRO  -->
-    <form action="<?=route('client.delete')?>" method="POST" class="delete-form">
+    <form action="<?= route('client.delete') ?>" method="POST" class="delete-form">
       <input type="hidden" name="_method" value="delete" />
       <input type="hidden" name="id" value="">
       <h2>Confirme a exclusão</h2>
       <div>
-        <p>Tem certeza que deseja apagar os dados do cliente <b></b>?</p>
+        <p>Tem certeza que deseja apagar os dados de <b></b>?</p>
         <button type="submit">Confirmar</button>
         <button type="reset">Cancelar</button>
       </div>
@@ -65,7 +65,7 @@
       <input type="search" name="search" placeholder="Procuper pelo nome do cliente ou carro" />
     </form>
 
-    <a href="<?=route('pages.create')?>" class="add">
+    <a href="<?= route('pages.create') ?>" class="add">
       <img src="/assets/images/plus.svg" alt="">
       Adicionar novo serviço
     </a>
@@ -77,12 +77,12 @@
           <?php foreach($fields as $field): ?>
             <th>
               <span>
-                <img src="<?=assets('images/' . $field['icon'])?>" alt="" />
+                <img src="<?= assets('images/' . $field['icon']) ?>" alt="" />
 
-                <?=$field['field']?>
+                <?= $field['field'] ?>
 
                 <?php if($field['arrow']): ?>
-                  <img src="<?=assets('images/arrow.svg')?>" alt="" />
+                  <img src="<?= assets('images/arrow.svg') ?>" alt="" />
                 <?php endif; ?>
               </span>
             </th>
@@ -90,6 +90,18 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach($data as $d): ?>
+          <tr data-id="<?= $d->id ?>">
+            <td>
+              <a href="/cliente/<?= $d->id ?>"><?= $d->name ?></a>
+            </td>
+            <td><?= $d->car->brand ?></td>
+            <td><?= $d->car->year ?></td>
+            <td><?= $d->car->model ?></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </main>
@@ -97,10 +109,10 @@
   <!-- MENU DE AÇÕES -->
   <div class="menu">
     <a href="javascript:void(0)">Marcar/desmarcar como concluído</a>
-    <a href="<?=route('pages.update')?>" class="update-item">Alterar dados</a>
+    <a href="<?= route('pages.update') ?>" class="update-item">Alterar dados</a>
     <a href="javascript:void(0)" class="delete-item">Apagar</a>
   </div>
 
-  <script src="<?=assets('js/home.js')?>"></script>
+  <script src="<?= assets('js/home.js') ?>"></script>
 </body>
 </html>

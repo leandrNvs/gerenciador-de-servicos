@@ -2,15 +2,24 @@
 
 namespace App\Controllers;
 
-use Src\Session\Session;
-use Src\Validation\Validate;
+use App\Models\Car;
+use App\Models\Client;
 use Src\Views\View;
 
 class Pages
 {
     public static function index()
     {
-        View::render('home');
+        $data = Client::with(Car::class);
+
+        View::render('home', compact('data'));
+    }
+
+    public static function show($id)
+    {
+        $data = Client::getById($id)->car();
+
+        View::render('details', compact('data'));
     }
 
     public static function create()
@@ -18,8 +27,10 @@ class Pages
         View::render('create-form');
     }
 
-    public static function update()
+    public static function update($id)
     {
-        View::render('update-form');
+        $data = Client::getById($id)->car();
+
+        View::render('update-form', compact('data'));
     }
 }

@@ -42,7 +42,9 @@ Routes::get('/', [Pages::class, 'index'])->name('pages.home');
 
 Routes::get('/criar-novo-registro', [Pages::class, 'create'])->name('pages.create');
 
-Routes::get('/cliente/{id}/atualizar', [Pages::class, 'update'])->name('pages.update');
+Routes::get('/cliente/{id}/alterar', [Pages::class, 'update'])->name('pages.update');
+
+Routes::get('/cliente/{id}', [Pages::class, 'show'])->name('pages.show');
 
 Routes::get('/create-tables', [Table::class, 'index']);
 
@@ -58,7 +60,15 @@ Routes::post('/client', [Client::class, 'store'])->name('client.store');
  *  DELETE ROUTES
  * =================================================================
  */
-Routes::delete('/cliente/{id}/apagar', fn() => 'deleting')->name('client.delete');
+Routes::delete('/cliente/{id}/apagar', [Client::class, 'delete'])->name('client.delete');
+
+
+/**
+ * =================================================================
+ *  PATCH AND PUT ROUTES
+ * =================================================================
+ */
+Routes::put('/cliente/{id}/atualizar', [Client::class, 'update'])->name('client.update');
 
 /**
  * =================================================================
