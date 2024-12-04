@@ -76,11 +76,11 @@ class Validate
                 'message' => 'o campo deve conter apenas letras e espaços.'
             ],
             'numeric' => [
-                'rule' => fn(...$value) => !preg_match("/^[0-9]+$/", $value[0]),
+                'rule' => fn(...$value) => !preg_match("/^[0-9\.\,]+$/", $value[0]),
                 'message' => 'o campo deve conter apenas números.'
             ],
             'alphanumeric' => [
-                'rule' => fn(...$value) => !preg_match("/^[0-9a-zA-Z\s]+$/", $value[0]),
+                'rule' => fn(...$value) => !preg_match("/^[0-9a-zA-Z\s\.\,]+$/", $value[0]),
                 'message' => 'o campo deve conter apenas letras, números e espaços.'
             ],
             'min' => [
@@ -104,6 +104,3 @@ class Validate
         endif;
     }
 }
-
-// const validation = {
-// };

@@ -164,3 +164,7 @@ form.delete-form button:last-of-type {
     font-weight: bold;
     background: transparent;
 }
+
+img.arrow.active {
+    transform: rotate(180deg);
+}

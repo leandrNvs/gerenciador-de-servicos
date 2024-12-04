@@ -165,8 +165,8 @@
   <script>
     const fields = {
       name: 'alpha|min:1',
-      phone: 'numeric|min:1|max:11',
-      cpf: 'numeric|min:1|max:11',
+      phone: 'numeric|min:1|max:15',
+      cpf: 'numeric|cpf|min:1|max:14',
       address: 'alphanumeric|min:1',
       brand: 'alpha|min:1',
       model: 'alphanumeric|min:1',

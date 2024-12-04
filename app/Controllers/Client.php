@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Car as ModelsCar;
 use App\Models\Client as ModelsClient;
 use Exception;
+use Src\Database\QueryBuilder;
 use Src\Http\Request;
 use Src\Routing\Redirect;
 use Src\Session\Flash;
@@ -74,8 +75,8 @@ class Client
 
         $data = Validate::validate($rules, [
             'name'    => $request->input('name'),
-            'phone'   => $request->input('phone'),
-            'cpf'     => $request->input('cpf'),
+            'phone'   => $request->inputParse('phone')->clear('/(\(|\)|\-|\s)/', '')->get(),
+            'cpf'     => $request->inputParse('cpf')->clear('/(\.|\-)/', '')->get(),
             'address' => $request->input('address'),
             'brand'   => $request->input('brand'),
             'model'   => $request->input('model'),
@@ -87,6 +88,11 @@ class Client
             'reported_defect' => $request->input('reported_defect'),
             'problem_found'   => $request->input('problem_found'),
         ]);
+
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
+        exit;
 
         $clientData = $data->partial('name, phone, cpf, address');
         $carData    = $data->partial('brand, model, year, plate, color, km, fuel, reported_defect, problem_found');
@@ -114,5 +120,42 @@ class Client
         Session::set(Flash::FLASH_MESSAGE, "Os dados de {$client->name} foram foram apagados.");
 
         Redirect::to('/');
+    }
+
+    public static function search()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        $data = QueryBuilder::table('client')
+            ->select()
+            ->join('car')
+            ->on('client.id = car.clientId');
+
+        foreach($input as $key => $value):
+            $data->orderBy($key, $value);
+        endforeach;
+
+        $data = $data->execute()['data'];
+
+        $lines = [];
+
+        foreach($data as $key => $value):
+          $line = <<<LINE
+                <tr data-id="{$value->id}">
+                    <td>
+                        <a href="/cliente/{$value->id}">{$value->name}</a>
+                    </td>
+                    <td>{$value->brand}</td>
+                    <td>{$value->year}</td>
+                    <td>{$value->model}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+          LINE;
+
+          $lines[] = $line;
+        endforeach;
+
+        return join("\n", $lines);
     }
 }

@@ -6,6 +6,8 @@ use Reflection;
 use ReflectionClass;
 use Src\Database\QueryBuilder;
 
+use function Src\Helpers\getClassInfo;
+
 class Model
 {
     /**
@@ -182,43 +184,48 @@ class Model
 
     public static function with($model)
     {
-        $first = new ReflectionClass(get_called_class());
+        [$parentTable, $parentPrimaryKey, $className] = getClassInfo(get_called_class());
 
-        $primaryKey = $first->getProperty('primaryKey')->getDefaultValue();
+        $models = is_array($model)? $model : [$model];
 
-        $tableName = explode('\\', $first->getName());
-        $tableName = strtolower(end($tableName));
+        $children = [];
 
-        $second = new ReflectionClass($model);
-
-        $tableName2 = explode('\\', $second->getName());
-        $tableName2 = strtolower(end($tableName2));
-
-        $data1 = QueryBuilder::table($tableName)->select()->execute();
-
-        $ids = array_column($data1['data'], 'id');
-
-        $col = $tableName . $primaryKey;
-
-        $data2 = QueryBuilder::table($tableName2)->select()->whereIn($col, $ids)->execute();
-
-        $data = [];
-
-        foreach($data1['data'] as $d):
-            $model = call_user_func([get_called_class(), 'create'], $d);
-
-            $id = $model->id;
-
-            $item = array_filter($data2['data'], function($i) use($id, $col) {
-                return $i->{$col} == $id;
-            });
-
-            $model->{$tableName2} = call_user_func([$second->getName(), 'create'], end($item));
-
-            array_push($data, $model);
+        foreach($models as $m):
+            $children['child' . count($children) + 1] = getClassInfo($m);
         endforeach;
 
-        return $data;
+        $parent = QueryBuilder::table($parentTable)->select()->execute();
+
+        $parentIds = array_column($parent['data'], 'id');
+
+        $parent = array_map(function($model) use($className) {
+            return call_user_func([$className, 'create'], $model);
+        }, $parent['data']);
+
+
+        $foreignKey = $parentTable . $parentPrimaryKey;
+
+        $childrenData = [];
+
+        foreach($children as $key => $value):
+            $chld = array_map(function($model) use($value) {
+                return call_user_func([$value[2], 'create'], $model);
+            }, QueryBuilder::table($value[0])->select()->whereIn($foreignKey, $parentIds)->execute()['data']);
+
+            $childrenData[$key] = $chld;
+        endforeach;
+
+        foreach($parent as $p):
+            foreach($childrenData as $key => $value):
+                $filtered = array_filter($value, function($model) use($p, $foreignKey) {
+                    return $model->{$foreignKey} == $p->id;
+                });
+
+                $p->{$children[$key][0]} = end($filtered);
+            endforeach;
+        endforeach;
+
+        return $parent;
     }
 
     public static function where(...$args)

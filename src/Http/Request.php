@@ -2,6 +2,8 @@
 
 namespace Src\Http;
 
+use Src\Utilities\Input;
+
 class Request
 {
     private static $instance;
@@ -35,6 +37,11 @@ class Request
     public function input($input, $default = null)
     {
         return $this->input[$input] ?? $default;
+    }
+
+    public function inputParse($input, $default = null)
+    {
+        return new Input($this->input[$input] ?? $default);
     }
 
     public static function getInstance()

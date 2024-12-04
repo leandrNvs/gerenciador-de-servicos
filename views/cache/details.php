@@ -131,8 +131,16 @@
       bottom: 1rem;
     }
 
-    table.amout td {
-      padding: 0 !important;
+    table.amount {
+      width: fit-content;
+      justify-self: start;
+    }
+
+    table.amount td {
+      padding: 0;
+      font-size: 1.2rem;
+      text-align: left;
+      padding-right: 1rem;
     }
   </style>
 </head>
@@ -367,19 +375,19 @@
               <tbody>
                 <tr>
                   <td>Valor peças:</td>
-                  <td></td>
+                  <td>25.00</td>
                 </tr>
                 <tr>
                   <td>Valor serviços:</td>
-                  <td></td>
+                  <td>25.00</td>
                 </tr>
                 <tr>
                   <td>Valor descontos:</td>
-                  <td></td>
+                  <td>25.00</td>
                 </tr>
                 <tr>
                   <td>Valor total:</td>
-                  <td></td>
+                  <td>25.00</td>
                 </tr>
               </tbody>
             </table>

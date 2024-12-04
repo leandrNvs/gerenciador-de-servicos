@@ -55,6 +55,8 @@ Routes::get('/create-tables', [Table::class, 'index']);
  */
 Routes::post('/client', [Client::class, 'store'])->name('client.store');
 
+Routes::post('/client/sort', [Client::class, 'search'])->name('client.sort');
+
 /**
  * =================================================================
  *  DELETE ROUTES

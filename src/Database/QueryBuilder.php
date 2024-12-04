@@ -132,7 +132,7 @@ final class QueryBuilder
     public function orderBy($column, $direction = 'ASC')
     {
         if(!$this->orderBy):
-            $this->orderBy = "ORDER BY {$column} {$direction}";
+            $this->orderBy = " ORDER BY {$column} {$direction}";
         else:
             $this->orderBy .= ", {$column} {$direction}";
         endif;

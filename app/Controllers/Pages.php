@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Car;
 use App\Models\Client;
+use App\Models\Service;
 use Src\Views\View;
 
 class Pages

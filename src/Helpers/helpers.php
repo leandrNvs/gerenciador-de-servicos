@@ -2,6 +2,7 @@
 
 namespace Src\Helpers;
 
+use ReflectionClass;
 use Src\Routing\Routes;
 
 function route($name, $data = [])
@@ -18,4 +19,16 @@ function route($name, $data = [])
 function assets($asset)
 {
     return '/assets/' . $asset;
+}
+
+function getClassInfo($class)
+{
+    $reflection = new ReflectionClass($class);
+
+    $primaryKey = $reflection->getProperty('primaryKey')->getDefaultValue();
+
+    $tableName = explode('\\', $reflection->getName());
+    $tableName = strtolower(end($tableName));
+
+    return [$tableName, $primaryKey, $class];
 }

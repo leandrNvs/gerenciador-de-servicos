@@ -10,6 +10,8 @@ const updateItem = document.querySelector('div.menu a.update-item');
 const search = document.querySelector('form.search input');
 const complete = document.querySelector('form.search div');
 
+const ths = document.querySelectorAll('table th');
+
 const URL = window.location.href;
 
 window.addEventListener('click', function(e) {
@@ -69,8 +71,8 @@ function selectLines()
 
 search.addEventListener('keyup', async function() {
     const req = await fetch(URL + 'search', {
-    method: 'POST',
-    body: this.value
+        method: 'POST',
+        body: this.value
     });
 
     const res = await req.text();
@@ -79,3 +81,26 @@ search.addEventListener('keyup', async function() {
 
     selectLines();
 });
+
+const filter = {}
+
+ths.forEach(th => {
+    th.addEventListener('click', async function() {
+        filter[this.dataset.field] = this.dataset.direction;
+
+        this.dataset.direction = this.dataset.direction === 'ASC'? 'DESC' : 'ASC';
+
+        this.querySelector('img.arrow').classList.toggle('active');
+
+        const req = await fetch(URL + 'client/sort', {
+            method: 'POST',
+            body: JSON.stringify(filter)
+        });
+
+        const res = await req.text();
+
+        tbody.innerHTML = res;
+
+        selectLines();
+    });
+})

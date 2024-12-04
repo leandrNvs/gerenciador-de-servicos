@@ -6,22 +6,26 @@
     [
       'field' => 'cliente',
       'icon' => 'user.svg',
-      'arrow' => true
+      'arrow' => true,
+      'sort' => 'client.name'
     ],
     [
       'field' => 'carro',
       'icon' => 'car.svg',
-      'arrow' => true
+      'arrow' => true,
+      'sort' => 'car.brand'
     ],
     [
       'field' => 'ano',
       'icon' => 'calendar.svg',
-      'arrow' => true
+      'arrow' => true,
+      'sort' => 'car.year'
     ],
     [
       'field' => 'modelo',
       'icon' => 'car-model.svg',
-      'arrow' => true
+      'arrow' => true,
+      'sort' => 'car.model'
     ],
     [
       'field' => 'serviço',
@@ -31,7 +35,8 @@
     [
       'field' => 'data',
       'icon' => 'calendar.svg',
-      'arrow' => true
+      'arrow' => true,
+      'sort' => 'service.date'
     ],
   ]
 @endphp
@@ -75,14 +80,14 @@
       <thead>
         <tr>
           @foreach($fields as $field)
-            <th>
+            <th data-field="{{isset($field['sort'])? $field['sort'] : null}}" data-direction="DESC">
               <span>
                 <img src="{{assets('images/' . $field['icon'])}}" alt="" />
 
                 {{$field['field']}}
 
                 @if($field['arrow'])
-                  <img src="{{assets('images/arrow.svg')}}" alt="" />
+                  <img src="{{assets('images/arrow.svg')}}" class="arrow active" alt="" />
                 @endif
               </span>
             </th>

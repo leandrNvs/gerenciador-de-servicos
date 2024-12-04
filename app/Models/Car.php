@@ -14,6 +14,7 @@ class Car extends Model
         'km',
         'fuel',
         'reported_defect',
-        'problem_found'
+        'problem_found',
+        'clientid'
     ];
 }
