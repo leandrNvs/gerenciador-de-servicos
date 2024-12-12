@@ -1,0 +1,67 @@
+@reusable('form-control')
+<div class="form-control">
+  <div class="label">
+    <label for="$id">$label</label>
+    <span class="{{! $view_has_form_err? 'active' : '' !}}">* {{!$view_form_err['$name'][0] ?? null!}}</span>
+  </div>
+  <div class="input-control">
+    <input type="$type" name="$name" id="$id" value="{{$view_form_data['$name'] ?? ''}}" />
+  </div>
+</div>
+@endreusable
+
+@reusable('textarea')
+<div class="form-control">
+  <div class="label">
+    <label for="$id">$label</label>
+    <span class="{{! $view_has_form_err? 'active' : '' !}}">* {{!$view_form_err['$name'][0] ?? null!}}</span>
+  </div>
+  <div class="input-control textarea">
+    <textarea name="$name" id="$id" rows="7">{{$view_form_data['$name'] ?? ''}}</textarea>
+    <div class="icon">!</div>
+  </div>
+</div>
+@endreusable
+
+@template('templates/form')
+<section class="container">
+  <h1>Criar nova ordem de serviço</h1>
+
+  <form action="{{! route('services.store') !}}" method="POST" autocomplete="off">
+    <h2>1. dados do cliente</h2>
+    <div class="row">
+      @use('form-control', [ 'id' => 'name', 'type' => 'text', 'label' => 'Nome do cliente', 'name' => 'client_name' ])
+      @use('form-control', [ 'id' => 'phone', 'type' => 'text', 'label' => 'Telefone', 'name' => 'client_phone' 'data' => '$service->client_phone' ])
+    </div>
+    <div class="row">
+      @use('form-control', [ 'id' => 'cpf', 'type' => 'text', 'label' => 'CPF', 'name' => 'client_cpf' 'data' => '$service->client_cpf' ])
+      @use('form-control', ['id' => 'address', 'type' => 'text', 'label' => 'Endereço', 'name' => 'client_address' 'data' => '$service->client_address'])
+    </div>
+
+    <h2>2. dados do veículo</h2>
+    <div class="row">
+      @use('form-control', [ 'id' => 'brand', 'type' => 'text', 'label' => 'Marca', 'name' => 'car_brand'])
+      @use('form-control', [ 'id' => 'model', 'type' => 'text', 'label' => 'Modelo', 'name' => 'car_model'])
+    </div>
+    <div class="row">
+      @use('form-control', [ 'id' => 'year', 'type' => 'text', 'label' => 'Ano', 'name' => 'car_year'])
+      @use('form-control', [ 'id' => 'color', 'type' => 'text', 'label' => 'Cor', 'name' => 'car_color'])
+    </div>
+    <div class="row">
+      @use('form-control', [ 'id' => 'plate', 'type' => 'text', 'label' => 'Placa do veículo', 'name' => 'car_plate'])
+      @use('form-control', [ 'id' => 'km', 'type' => 'text', 'label' => 'KM atual', 'name' => 'car_km'])
+      @use('form-control', [ 'id' => 'fuel', 'type' => 'text', 'label' => 'Combustível', 'name' => 'car_fuel'])
+    </div>
+    <div>
+      @use('textarea', [ 'id' => 'reported_defect', 'name' => 'car_reported_defect', 'label' => 'Problema informado'])
+    </div>
+    <div>
+      @use('textarea', [ 'id' => 'problem_found', 'name' => 'car_problem_found', 'label' => 'Problema detectado'])
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit">Salvar alterações</button>
+      <a href="/">Cancelar</a>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,135 @@
+@reusable('form-control')
+<div class="form-control">
+  <div class="label">
+    <label for="$id">$label</label>
+    <span class="{{! $view_has_form_err? 'active' : '' !}}">* {{!$view_form_err['$name'][0] ?? null!}}</span>
+  </div>
+  <div class="input-control">
+    <input type="$type" name="$name" id="$id" value="{{$view_form_data['$name'] ?? ''}}" />
+  </div>
+</div>
+@endreusable
+
+@reusable('textarea')
+<div class="form-control">
+  <div class="label">
+    <label for="$id">$label</label>
+    <span class="{{! $view_has_form_err? 'active' : '' !}}">* {{!$view_form_err['$name'][0] ?? null!}}</span>
+  </div>
+  <div class="input-control textarea">
+    <textarea name="$name" id="$id" rows="7">{{$view_form_data['$name'] ?? ''}}</textarea>
+  </div>
+</div>
+@endreusable
+
+@template('templates/form')
+<section class="container">
+  <h1>Atualização de dados</h1>
+
+  <div class="filters">
+    <div class="panes">
+      <a href="{{route('pages.update', ['id' => $service->id])}}">Atualização de dados</a>
+      <a href="{{route('pages.update-service', ['id' => $service->id])}}" class="active">Informações do serviço prestado</a>
+    </div>
+  </div>
+
+  <form action="{{route('services.add-service', ['id' => $service->id])}}" class="form-serviceinfo" method="POST" autocomplete="off">
+    <h2>1. informações sobre o serviço prestado</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Serviço prestado</th>
+          <th>Valor do desconto</th>
+          <th>Valor do serviço</th>
+          <th>Total</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($service->servicesInfo as $info)
+          <tr>
+            <td>{{$info->service_detail}}</td>
+            <td>{{$info->service_descount}}%</td>
+            <td>R$ {{$info->service_price}}</td>
+            <td>R$ {{(float)$info->service_price - ((100 - (int) $info->service_descount) / 100)}}</td>
+            <td>
+              <a href="{{! route('serviceinfo.delete', ['idserv' => $service->id,'idpart' => $info->id]) !}}"><img src="/assets/images/x.svg" alt=""></a>
+              @php $data = ['detail' => $info->service_detail, 'descount' => $info->service_descount, 'price' => $info->service_price] @endphp
+              <a href="javascript:void(0)" onclick="updateInfo('{{!route('serviceinfo.update', ['idserv' => $service->id,'idpart' => $info->id])!}}', '{{json_encode($data)}}')"><img src="/assets/images/pen.svg" alt=""></a>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+
+    <div>
+        @use('textarea', [ 'id' => 'service_detail', 'name' => 'service_detail', 'label' => 'Descrição do serviço'])
+    </div>
+    <div class="row">
+        @use('form-control', [ 'id' => 'service_price', 'name' => 'service_price', 'label' => 'Valor do serviço'])
+        @use('form-control', [ 'id' => 'service_descount', 'name' => 'service_descount', 'label' => 'Desconto aplicado'])
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit">Adicionar informações</button>
+      <a href="/">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<section class="container" style="margin-top: 2rem;">
+  <form action="{{route('services.part', ['id' => $service->id])}}" method="POST" class="form-part" autocomplete="off">
+    <h2>2. informações sobre as peças</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Local da compra</th>
+          <th>Vendedor</th>
+          <th>Data da compra</th>
+          <th>Peça</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Total</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($service->parts as $info)
+          <tr>
+            <td>{{$info->part_place}}</td>
+            <td>{{$info->part_seller}}</td>
+            <td>{{$info->part_date_purchase ?? ''}}</td>
+            <td>{{$info->part_name}}</td>
+            <td>{{$info->part_quantity}}</td>
+            <td>R$ {{$info->part_price}}</td>
+            <td>R$ {{(float) $info->part_price * (float) $info->part_quantity}}</td>
+            <td>
+              <a href="{{! route('part.delete', ['idserv' => $service->id,'idpart' => $info->id]) !}}"><img src="/assets/images/x.svg" alt=""></a>
+              @php $data = ['place' => $info->part_place, 'seller' => $info->part_seller, 'date' => $info->part_date_purchase, 'name' => $info->part_name, 'price' => $info->part_price, 'quantity' => $info->part_quantity] @endphp
+              <a href="javascript:void(0)" onclick="updatePart('{{!route('part.update', ['idserv' => $service->id,'idpart' => $info->id])!}}', '{{json_encode($data)}}')"><img src="/assets/images/pen.svg" alt=""></a>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+
+    <div class="row">
+        @use('form-control', [ 'id' => 'part_seller', 'name' => 'part_seller', 'label' => 'Nome do vendedor'])
+        @use('form-control', [ 'id' => 'part_place', 'name' => 'part_place', 'label' => 'Local da compra'])
+        @use('form-control', [ 'id' => 'part_date_purchase', 'name' => 'part_date_purchase', 'label' => 'Data da compra'])
+    </div>
+    <div class="row">
+        @use('form-control', [ 'id' => 'part_name', 'name' => 'part_name', 'label' => 'Peça'])
+        @use('form-control', [ 'id' => 'part_price', 'name' => 'part_price', 'label' => 'Valor da peça'])
+        @use('form-control', [ 'id' => 'part_quantity', 'name' => 'part_quantity', 'label' => 'Quantidade comprada'])
+    </div>
+
+
+    <div class="form-buttons">
+      <button type="submit">Adicionar informações</button>
+      <a href="/">Cancelar</a>
+    </div>
+  </form>
+</section>

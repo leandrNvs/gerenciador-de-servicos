@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+main.container {
+  padding: 2rem;
+  display: grid;
+  gap: 2rem;
+  padding-bottom: 0;
+}
+
+div.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+div.header a {
+  background: dodgerblue;
+  color: #fff;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+}
+
+div.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form.search-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+form.search-form input {
+  font-size: 1.2rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  border: 1px solid #aaa;
+  width: 100%;
+  padding-left: 3rem;
+  background: url('/assets/images/search.svg') 4% 50% no-repeat;
+}
+
+div.panes {
+  display: flex;
+  gap: 2rem;
+}
+
+div.panes a {
+  padding: .5rem;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  color: #222;
+}
+
+div.panes a:hover {
+  border-bottom-color: gray;
+}
+
+div.panes a.active {
+  border-bottom-color: purple;
+  font-weight: 700;
+  color: #000;
+}
+
+table.services {
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+table.services thead tr {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+table.services th {
+  text-align: left;
+  padding: 1rem;
+}
+
+table.services th div {
+  display: flex;
+  gap: .7rem;
+}
+
+table.services th div img:last-of-type {
+  margin-bottom: -5px;
+}
+
+table.services tbody tr {
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 2px #888;
+  border-radius: 1rem;
+  transition: .5s ease;
+}
+
+table.services tbody tr:hover {
+  background: #eee;
+}
+
+table.services tbody tr.marked {
+  background: #eee;
+}
+
+table.services tbody td {
+  padding: 1rem;
+}
+
+table.services tbody td a {
+  text-transform: capitalize;
+}
+
+td.problem {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+div.actions {
+  position: fixed;
+  top: 5rem;
+  left: 5rem;
+  background: #ffff;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  display: none;
+}
+
+div.actions.active {
+  display: grid;
+}
+
+div.actions a {
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: #000;
+  border-top: 1px solid #ccc;
+}
+
+div.actions a:hover {
+  background: #f5f5f5;
+}
+
+div.paginate {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.paginate a {
+  text-decoration: none;
+  color: #000;
+  height: 40px;
+  width: 40px;
+  border: 1px solid #aaa;
+  display: inline-grid;
+  place-items: center;
+}
+
+div.paginate a.active {
+  background: dodgerblue;
+  border-color: dodgerblue;
+  color: #fff;
+}
+
+div.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  background: rgba(0, 0, 0, .5);
+
+  display: none;
+  place-items: center;
+}
+
+div.overlay.active {
+  display: grid;
+}
+
+div.overlay form {
+  background: #fff;
+}
+
+div.overlay form b {
+  text-transform: capitalize;
+}
+
+div.overlay h2 {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+}
+
+div.overlay form div {
+  padding: 2rem;
+}
+
+div.overlay form p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+div.overlay form button {
+  font-size: 1.1rem;
+  font-weight: bolder;
+  border: 0;
+  background: red;
+  padding: 1rem;
+  color: #fff;
+}
+
+div.overlay form button:last-of-type {
+  margin-left: 1rem;
+  background: transparent;
+  color: #000;
+}
+
+div.flash-messages {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  border-left: 10px solid green;
+  font-size: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  z-index: 1;
+  display: none;
+}
+
+div.flash-messages.active {
+  display: block;
+}
