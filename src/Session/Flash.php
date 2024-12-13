@@ -4,8 +4,7 @@ namespace Src\Session;
 
 final class Flash
 {
-    const SUCCESS = true;
-    const FAILED = false;
+    const STATUS = 'flash_status';
     const MESSAGE = 'flash_message';
 
     /**

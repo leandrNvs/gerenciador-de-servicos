@@ -95,8 +95,8 @@
     <a href="javascript:void(0)" onclick="showConfirmDeleteBox()">Apagar item</a>
   </div>
 
-  <div class="flash-messages @hasMessage('active')">
-    @message
+  <div class="flash-messages <?=$view_flash_success? 'active' : ''?>">
+    <?=($message = $view_flash_message)? $message : null?>
   </div>
 
   <script src="/assets/js/home.js"></script>

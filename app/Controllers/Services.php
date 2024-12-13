@@ -31,6 +31,7 @@ final class Services
 
         $service->store();
 
+        flash()->set(Flash::STATUS, true);
         flash()->set(Flash::MESSAGE, "Nova ordem de serviço para <b>{$service->client_name}</b>");
 
         return to_route('pages.home');
@@ -53,6 +54,7 @@ final class Services
 
         $service->client_name = ucfirst($service->client_name);
 
+        flash()->set(Flash::STATUS, true);
         flash()->set(Flash::MESSAGE, "A ordem de serviço de <b>$service->client_name</b> foi alterada.");
 
         return to_route('pages.home');
@@ -65,6 +67,8 @@ final class Services
         $service->client_name = ucfirst($service->client_name);
 
         $service->save();
+
+        flash()->set(Flash::STATUS, true);
 
         if($service->completed) {
             flash()->set(Flash::MESSAGE, "A ordem de serviço de <b>$service->client_name</b> foi marcada como concluída.");
@@ -81,9 +85,10 @@ final class Services
 
         $service->delete();
 
+        flash()->set(Flash::STATUS, true);
         flash()->set(Flash::MESSAGE, "A ordem de serviço de <b>$service->client_name</b> foi apagada.");
 
-        return to_route('pages.home');
+        return Redirect::back();
     }
 
     public static function addService(Request $request, Service $service)

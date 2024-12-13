@@ -303,8 +303,8 @@
         <thead>
           <tr>
             <th>Descrição do item</th>
-            <th>Valor da unidade</th>
-            <th>Quantidade</th>
+            <th>Valor do serviço</th>
+            <th>Desconto</th>
             <th>Valor total</th>
           </tr>
         </thead>
@@ -340,19 +340,15 @@
               <tbody>
                 <tr>
                   <td>Valor peças:</td>
-                  <td>25.00</td>
+                  <td>R$ <?=$partTotal?></td>
                 </tr>
                 <tr>
                   <td>Valor serviços:</td>
-                  <td>25.00</td>
-                </tr>
-                <tr>
-                  <td>Valor descontos:</td>
-                  <td>25.00</td>
+                  <td>R$ <?=$infoTotal?></td>
                 </tr>
                 <tr>
                   <td>Valor total:</td>
-                  <td>25.00</td>
+                  <td>R$ <?=$partTotal + $infoTotal?></td>
                 </tr>
               </tbody>
             </table>

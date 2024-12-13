@@ -2,7 +2,7 @@ const actionsEl = document.querySelector('div.actions');
 
 window.addEventListener('click', function(e) {
 
-  if(!e.target.classList.contains('actions') && !actionsEl) {
+  if(!e.target.classList.contains('actions') && actionsEl) {
     activeEl.classList.remove('marked');
 
     actionsEl.classList.remove('active');
@@ -59,3 +59,11 @@ function toggleComplete()
   formComplete.action = activeEl.dataset.completed
   formComplete.submit();
 }
+
+window.addEventListener('load', () => {
+
+  setTimeout(() => {
+    document.querySelector('.flash-messages').classList.remove('active');
+  }, 3000);
+
+});
